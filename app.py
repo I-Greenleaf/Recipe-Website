@@ -1,3 +1,8 @@
+# To activate virtual environment:
+# Set-ExecutionPolicy RemoteSigned –Scope Process
+# env\Scripts\Activate.ps1
+# flask run --debug
+
 from flask import Flask, render_template, request
 
 app = Flask(__name__)
