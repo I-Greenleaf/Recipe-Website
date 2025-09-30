@@ -1,0 +1,234 @@
+{% extends "base.html" %}
+
+<style> /* No effect on page. Shows colors of text in IDE. */
+{% block styles %}
+    /* Classes for side nav bar */
+    label, .legend {
+        /* color did not apply when just listing legend element
+            added it as a class */
+        color: var(--text-color);
+    }
+    input[type=checkbox] {
+        background-color: var(--back-color);
+        border: solid var(--text-color) 2px;
+    }
+    input[type=checkbox]:checked {
+        /* #0172AD is the default azure blue color for the checkbox for PicoCSS */
+        background-color: #0172AD;
+        /* Want to check the checkmark to be --back-color and not white
+            accent-color does not work */
+    }
+
+    /* Classes for page orientation */
+    .parent {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: repeat(6, 1fr);
+        grid-column-gap: 0px;
+        grid-row-gap: 0px;
+        margin-left: 150px; /* Moves grid to right of sidebar*/
+    }
+    .side {
+        position: fixed;
+        height: 100%;
+    }
+{% endblock %}
+</style>
+{% block body %}
+    <!-- Side Navagation Bar -->
+    <aside><nav class="side">
+        <!-- Recipe Collection Choice -->
+        <fieldset>
+            <legend class="legend">Recipes:</legend>
+            <label>
+                <input type="checkbox" name="my" />
+                My Recipes
+            </label>
+            <label>
+                <input type="checkbox" name="saved" />
+                Saved Recipes
+            </label>
+        </fieldset>
+        <!-- Meal Choice -->
+        <fieldset>
+            <legend class="legend">Meal:</legend>
+            <label>
+                <input type="checkbox" name="breakfast" />
+                Breakfast
+            </label>
+            <label>
+                <input type="checkbox" name="lunch" />
+                Lunch
+            </label>
+            <label>
+                <input type="checkbox" name="dinner" />
+                Dinner
+            </label>
+            <label>
+                <input type="checkbox" name="desert" />
+                Dessert
+            </label>
+            <label class="link-txt-color" >
+                <input type="checkbox" name="snacks" />
+                Snacks
+            </label>
+        </fieldset>
+    </nav></aside>
+
+    <div class="parent">
+        <div class="item">   
+            <a href="/peppers"><img title="cat" src="{{ img }}/peppers2.jpg"/></a>
+            <hr class="item" /> 
+            <a href="/peppers" class="none space"><b>Cream Cheese Stuffed Peppers</b></a>
+            <br>
+            <span class="fa fa-star checked space"></span>
+            <span class="fa fa-star checked "></span>
+            <span class="fa fa-star checked "></span>
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star checked"></span>    
+        </div>
+        <div class="item"> 
+            <a href=""><img title="cat" src="https://placecats.com/225/200"/></a>
+            <hr class="item" /> 
+            <a href="" class="none space"><b> Recipe Name </b></a>
+            <br>
+            <span class="fa fa-star space"></span>
+            <span class="fa fa-star "></span>
+            <span class="fa fa-star "></span>
+            <span class="fa fa-star "></span>
+            <span class="fa fa-star "></span>
+        </div>
+        <div class="item"> 
+            <a href=""><img title="cat" src="https://placecats.com/225/200"/></a>
+            <hr class="item" /> 
+            <a href="" class="none space"><b> Recipe Name </b></a>
+            <br>
+            <span class="fa fa-star space"></span>
+            <span class="fa fa-star "></span>
+            <span class="fa fa-star "></span>
+            <span class="fa fa-star "></span>
+            <span class="fa fa-star "></span>
+        </div>
+        <div class="item"> 
+            <a href=""><img title="cat" src="https://placecats.com/225/200"/></a>
+            <hr class="item" /> 
+            <a href="" class="none space"><b> Recipe Name </b></a>
+            <br>
+            <span class="fa fa-star space"></span>
+            <span class="fa fa-star "></span>
+            <span class="fa fa-star "></span>
+            <span class="fa fa-star "></span>
+            <span class="fa fa-star "></span>
+        </div>
+        <div class="item"> 
+            <a href=""><img title="cat" src="https://placecats.com/225/200"/></a>
+            <hr class="item" /> 
+            <a href="" class="none space"><b> Recipe Name </b></a>
+            <br>
+            <span class="fa fa-star space"></span>
+            <span class="fa fa-star "></span>
+            <span class="fa fa-star "></span>
+            <span class="fa fa-star "></span>
+            <span class="fa fa-star "></span>
+        </div>
+        <div class="item"> 
+            <a href=""><img title="cat" src="https://placecats.com/225/200"/></a>
+            <hr class="item" /> 
+            <a href="" class="none space"><b> Recipe Name </b></a>
+            <br>
+            <span class="fa fa-star space"></span>
+            <span class="fa fa-star "></span>
+            <span class="fa fa-star "></span>
+            <span class="fa fa-star "></span>
+            <span class="fa fa-star "></span>
+        </div>
+        <div class="item"> 
+            <a href=""><img title="cat" src="https://placecats.com/225/200"/></a>
+            <hr class="item" /> 
+            <a href="" class="none space"><b> Recipe Name </b></a>
+            <br>
+            <span class="fa fa-star space"></span>
+            <span class="fa fa-star "></span>
+            <span class="fa fa-star "></span>
+            <span class="fa fa-star "></span>
+            <span class="fa fa-star "></span>
+        </div>
+        <div class="item"> 
+            <a href=""><img title="cat" src="https://placecats.com/225/200"/></a>
+            <hr class="item" /> 
+            <a href="" class="none space"><b> Recipe Name </b></a>
+            <br>
+            <span class="fa fa-star space"></span>
+            <span class="fa fa-star "></span>
+            <span class="fa fa-star "></span>
+            <span class="fa fa-star "></span>
+            <span class="fa fa-star "></span>
+        </div>
+        <div class="item"> 
+            <a href=""><img title="cat" src="https://placecats.com/225/200"/></a>
+            <hr class="item" /> 
+            <a href="" class="none space"><b> Recipe Name </b></a>
+            <br>
+            <span class="fa fa-star space"></span>
+            <span class="fa fa-star "></span>
+            <span class="fa fa-star "></span>
+            <span class="fa fa-star "></span>
+            <span class="fa fa-star "></span>
+        </div>
+        <div class="item"> 
+            <a href=""><img title="cat" src="https://placecats.com/225/200"/></a>
+            <hr class="item" /> 
+            <a href="" class="none space"><b> Recipe Name </b></a>
+            <br>
+            <span class="fa fa-star space"></span>
+            <span class="fa fa-star "></span>
+            <span class="fa fa-star "></span>
+            <span class="fa fa-star "></span>
+            <span class="fa fa-star "></span>
+        </div>
+        <div class="item"> 
+            <a href=""><img title="cat" src="https://placecats.com/225/200"/></a>
+            <hr class="item" /> 
+            <a href="" class="none space"><b> Recipe Name </b></a>
+            <br>
+            <span class="fa fa-star space"></span>
+            <span class="fa fa-star "></span>
+            <span class="fa fa-star "></span>
+            <span class="fa fa-star "></span>
+            <span class="fa fa-star "></span>
+        </div>
+        <div class="item"> 
+            <a href=""><img title="cat" src="https://placecats.com/225/200"/></a>
+            <hr class="item" /> 
+            <a href="" class="none space"><b> Recipe Name </b></a>
+            <br>
+            <span class="fa fa-star space"></span>
+            <span class="fa fa-star "></span>
+            <span class="fa fa-star "></span>
+            <span class="fa fa-star "></span>
+            <span class="fa fa-star "></span>
+        </div>
+        <div class="item"> 
+            <a href=""><img title="cat" src="https://placecats.com/225/200"/></a>
+            <hr class="item" /> 
+            <a href="" class="none space"><b> Recipe Name </b></a>
+            <br>
+            <span class="fa fa-star space"></span>
+            <span class="fa fa-star "></span>
+            <span class="fa fa-star "></span>
+            <span class="fa fa-star "></span>
+            <span class="fa fa-star "></span>
+        </div>
+        <div class="item"> 
+            <a href=""><img title="cat" src="https://placecats.com/225/200"/></a>
+            <hr class="item" /> 
+            <a href="" class="none space"><b> Recipe Name </b></a>
+            <br>
+            <span class="fa fa-star space"></span>
+            <span class="fa fa-star "></span>
+            <span class="fa fa-star "></span>
+            <span class="fa fa-star "></span>
+            <span class="fa fa-star "></span>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,54 @@
+{% set img = url_for('static', filename='images') %}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <!--Adds picoCSS framework: https://picocss.com/docs-->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
+
+        <!-- Used for stars, source: https://www.w3schools.com/howto/howto_css_star_rating.asp -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        
+        <!-- Link to CSS file -->
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+        <style>{% block styles %}{% endblock %}</style>
+    </head>
+    <body>
+        <main class="container">
+            <nav class="top">
+                <ul>
+                    <li><a href="/"><strong><h1 class="link-txt-color">Placeholder</h1></strong></a></li>
+                </ul>
+                <ul>
+                    <li>
+                        <form role="search" class="search">
+                            <input name="search" type="search" placeholder="Search" class="search-color"/>
+                            <input type="submit" value="Search" class="search-button"/>
+                        </form> 
+                    </li>   
+                </ul>
+                <ul>
+                    <!-- <li><a href="enter-recipe.html"><img title="new-recipe" src="NewRecipe2.png" width=70% height=80%/></a></li> -->
+                    <li><a href="/new-recipe" class="link-txt-color">New Recipe</a></li>
+                    <li><a href="/cookbook" class="link-txt-color">Cookbook</a></li>
+                    <li><a href="" class="link-txt-color">Settings</a></li>
+                    <li><a href="" class="link-txt-color">Sign In</a></li>
+                    <!-- <li>
+                        <details class="dropdown">
+                            <summary>Account</summary>
+                            <ul dir="rtl">
+                            <li><a href="#">Profile</a></li>
+                            <li><a href="#">Settings</a></li>
+                            <li><a href="#">Logout</a></li>
+                            </ul>
+                        </details>
+                    </li> -->
+                </ul>
+            </nav>
+            <div class="page">
+            {% block body %}{% endblock %}
+            </div>
+        </main>
+    </body>
+</html>

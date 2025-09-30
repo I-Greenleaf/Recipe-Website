@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+<style> /* No effect on page. Shows colors of text in IDE. */
+{% block styles %}
+    label, li {
+        color: var(--text-color);
+    }
+    .main-img {
+        border: solid var(--text-color) 1px;
+        border-radius: var(--border-rad);
+        margin-bottom: 15px;
+    }
+{% endblock %}
+</style>
+
+{% block body %}
+    <h1> Cream Cheese Stuffed Peppers</h1>
+    <h4> 
+        Rating: 4.83/5.0
+        <span class="fa fa-star checked"></span>
+        <span class="fa fa-star checked"></span>
+        <span class="fa fa-star checked"></span>
+        <span class="fa fa-star checked"></span>
+        <span class="fa fa-star checked"></span>
+        (3)
+    </h4>
+    <h4> By: Zack Newton </h4>
+
+    <img title="peppers" src="{{ img }}/peppers.jpg" width=600 height="100%" class="main-img"/>
+    <!-- <div role="group" class="element">
+        <article> Prep Time: 1 hour </article>
+        <article> Cook Time: 10 minutes </article>
+    </div> -->
+    <article class="element">
+        Prep Time: 1 hour <br>
+        Cook Time: 10 minutes <br>
+        Total Time: 1 hour and 10 minutes
+        <hr/>
+        <fieldset>
+            <legend class="txt-color"> Servings: 4 </legend>
+            <input type="radio" id="0.5x" name="servings" />
+            <label htmlFor="0.5x">0.5x</label>
+            <input type="radio" id="1.0x" name="servings" checked/>
+            <label htmlFor="1.0x">1.0x</label>
+            <input type="radio" id="1.5x" name="servings" />
+            <label htmlFor="1.5x">1.5x</label>
+            <input type="radio" id="2.0x" name="servings" />
+            <label htmlFor="2.0x">2.0x</label>
+            <input type="radio" id="3.0x" name="servings" />
+            <label htmlFor="3.0x">3.0x</label>
+            <input type="radio" id="4.0x" name="servings" />
+            <label htmlFor="4.0x">4.0x</label>
+        </fieldset>
+    </article>
+    <article class="element">
+        <h3> Ingredients </h3>
+        <ul>
+            <li>8 bell peppers</li>
+            <li>10 cups spinach</li>
+            <li>1 yellow onion</li>
+            <li>4oz of mushrooms</li>
+            <li>6 cloves of garlic</li>
+            <li>4 8oz blocks of cream cheese</li>
+            <li>2 cups mozzeralla cheese</li>
+            <li>1 cup parmesan cheese</li>
+            <li>2 tsp. paprika</li>
+        </ul>
+    </article>
+    <article class="element">
+        <h3> Instructions </h3>
+        <ol>
+            <li>Dice the onion, mushrooms, and garlic and saute in a pan over med-high heat.</li>
+            <li>Add spinach to the pan and cover the pan. Wait until they and sweated down and add more. Repeat until all the spinach has been added.</li>
+            <li>Pre-heat the oven to 350 degrees.</li>
+            <li>Add the onions, mushrooms, garlic, and spinach to a large mixing bowl. Set aside some of the mozzeralla cheese to cover the peppers 
+                add the rest to the bowl. Add the cream cheese and parmesan cheese to the bowl and mix all together.</li>
+            <li>Add paprika and mix in salt and pepper to taste.</li>
+            <li>Cut the peppers in half and remove the stem and seeds.</li>
+            <li>Set the peppers on a baking sheet and fill each pepper with the mix from the bowl.</li>
+            <li>Cover the peppers with the remaining mozzeralla cheese.</li>
+            <li>Once done pre-heated, add the peppers to the oven. Wait until the cheese is golden-brown or about 10 minutes.</li>
+            <li>Enjoy!</li>
+        </ol>
+    </article>
+{% endblock %}

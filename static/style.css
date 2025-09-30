@@ -1,0 +1,115 @@
+:root {
+    --item-width: 225px;
+    --item-height: 200px;
+    --font-size: 14px;
+    font-size: var(--font-size);
+    --border-rad: 10px;
+}
+/* Light color scheme (Auto) */
+/* Automatically enabled if user has Light mode enabled */
+@media only screen and (prefers-color-scheme: light) {
+    :root:not([data-theme]) {
+        --back-color: #f7ede2;
+        background-color: var(--back-color);
+        --text-color: #515052;
+        color: var(--text-color);
+    }
+}
+/* Dark color scheme (Auto) */
+/* Automatically enabled if user has Dark mode enabled */
+@media only screen and (prefers-color-scheme: dark) {
+    :root:not([data-theme]) {
+        --back-color: #1c1c1c;
+        background-color: var(--back-color);
+        --text-color: #f7ede2;
+        color: var(--text-color);
+    }
+}
+
+
+/* Nav bar classes */
+.top {
+    border-bottom: solid var(--text-color) 2px;
+    position: fixed;
+    /* When nav bar is fixed, the width gets shorter, this sets the width to what it was before being fixed */
+    width: 81.5%;
+    /* Background prevents items from being seen through nav bar */
+    background: var(--back-color);
+    padding-top: 14px
+}
+.page {
+    margin-top: 120px; 
+}
+.container {
+    /* There is padding at the top of the page automatically
+        However when padding-top=0px, the nav bar breaks */
+    padding-top: 0.1px;
+}
+.search {
+    /* Aligns search bar with rest of elements in nav bar */
+    margin: 0px;
+}
+.search-color {
+    background-color: var(--back-color);
+    border: solid var(--text-color) 1px;
+    /* Want to remove blue outline when the box is clicked on 
+        and for "Search" text to be --text-color */
+}
+.search-button {
+    color: var(--back-color);
+    border: solid var(--text-color) 1px;
+    border-left: 0px;
+}
+.link-txt-color {
+    color:var(--text-color);
+    text-decoration: none;
+}
+.link-txt-color:hover {
+    text-decoration: underline;
+}
+
+
+/* Classes for Items */
+div.item {
+    width: var(--item-width);
+    /* Image will be --item-width by --item-height with rect under for text */
+    height: calc(var(--item-height) + var(--font-size) * 3.3);
+    border: 1px solid;
+    margin: 10px;
+    border-radius: var(--border-rad);
+}
+img {
+    /* Top corners rounded, bottoms not */
+    border-radius: var(--border-rad) var(--border-rad) 0px 0px;
+    width: 100%;
+    height: var(--item-height);
+}
+hr.item {
+    /* The hr line starts 1px to the right of the box so it needs to be 1px shorter*/
+    width: calc(var(--item-width) - 1px);
+    border-top: 1px solid;
+    margin: 0px;
+    /* margin-top: var(--item-height); */
+}
+.none {
+    /* Strips links of style - so they appear as normal text */
+    text-decoration: none;
+    color: inherit;
+}
+.checked {
+    /* For stars, cant do half stars */
+    color: #f6bd60;
+}
+.space {
+    /* Space for recipe names and stars in item */
+    padding-left: 2%;
+}
+
+
+/* Genearl */
+h1, h3, h4, h6 {
+    color: var(--text-color);
+}
+article {
+    background-color: var(--back-color);
+}
