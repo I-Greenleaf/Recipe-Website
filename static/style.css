@@ -35,7 +35,8 @@
     width: 81.5%;
     /* Background prevents items from being seen through nav bar */
     background: var(--back-color);
-    padding-top: 14px
+    padding-top: 14px;
+    z-index: 99;
 }
 .page {
     margin-top: 120px; 
