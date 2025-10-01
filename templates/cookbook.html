@@ -76,21 +76,11 @@
     </nav></aside>
 
     <div class="parent">
-        <div class="item">   
-            <a href="/peppers"><img title="cat" src="{{ img }}/peppers2.jpg"/></a>
-            <hr class="item" /> 
-            <a href="/peppers" class="none space"><b>Cream Cheese Stuffed Peppers</b></a>
-            <br>
-            <span class="fa fa-star checked space"></span>
-            <span class="fa fa-star checked "></span>
-            <span class="fa fa-star checked "></span>
-            <span class="fa fa-star checked"></span>
-            <span class="fa fa-star checked"></span>    
-        </div>
+        {% for r in recipes %}
         <div class="item"> 
-            <a href=""><img title="cat" src="https://placecats.com/225/200"/></a>
+            <a href="{{ r['href'] }}"><img title="{{r['name']}}" src= "{{ img }}/{{ r['src'] }}" /></a>
             <hr class="item" /> 
-            <a href="" class="none space"><b> Recipe Name </b></a>
+            <a href="{{ r['href'] }}" class="none space"><b> {{r['name']}} </b></a>
             <br>
             <span class="fa fa-star space"></span>
             <span class="fa fa-star "></span>
@@ -98,137 +88,6 @@
             <span class="fa fa-star "></span>
             <span class="fa fa-star "></span>
         </div>
-        <div class="item"> 
-            <a href=""><img title="cat" src="https://placecats.com/225/200"/></a>
-            <hr class="item" /> 
-            <a href="" class="none space"><b> Recipe Name </b></a>
-            <br>
-            <span class="fa fa-star space"></span>
-            <span class="fa fa-star "></span>
-            <span class="fa fa-star "></span>
-            <span class="fa fa-star "></span>
-            <span class="fa fa-star "></span>
-        </div>
-        <div class="item"> 
-            <a href=""><img title="cat" src="https://placecats.com/225/200"/></a>
-            <hr class="item" /> 
-            <a href="" class="none space"><b> Recipe Name </b></a>
-            <br>
-            <span class="fa fa-star space"></span>
-            <span class="fa fa-star "></span>
-            <span class="fa fa-star "></span>
-            <span class="fa fa-star "></span>
-            <span class="fa fa-star "></span>
-        </div>
-        <div class="item"> 
-            <a href=""><img title="cat" src="https://placecats.com/225/200"/></a>
-            <hr class="item" /> 
-            <a href="" class="none space"><b> Recipe Name </b></a>
-            <br>
-            <span class="fa fa-star space"></span>
-            <span class="fa fa-star "></span>
-            <span class="fa fa-star "></span>
-            <span class="fa fa-star "></span>
-            <span class="fa fa-star "></span>
-        </div>
-        <div class="item"> 
-            <a href=""><img title="cat" src="https://placecats.com/225/200"/></a>
-            <hr class="item" /> 
-            <a href="" class="none space"><b> Recipe Name </b></a>
-            <br>
-            <span class="fa fa-star space"></span>
-            <span class="fa fa-star "></span>
-            <span class="fa fa-star "></span>
-            <span class="fa fa-star "></span>
-            <span class="fa fa-star "></span>
-        </div>
-        <div class="item"> 
-            <a href=""><img title="cat" src="https://placecats.com/225/200"/></a>
-            <hr class="item" /> 
-            <a href="" class="none space"><b> Recipe Name </b></a>
-            <br>
-            <span class="fa fa-star space"></span>
-            <span class="fa fa-star "></span>
-            <span class="fa fa-star "></span>
-            <span class="fa fa-star "></span>
-            <span class="fa fa-star "></span>
-        </div>
-        <div class="item"> 
-            <a href=""><img title="cat" src="https://placecats.com/225/200"/></a>
-            <hr class="item" /> 
-            <a href="" class="none space"><b> Recipe Name </b></a>
-            <br>
-            <span class="fa fa-star space"></span>
-            <span class="fa fa-star "></span>
-            <span class="fa fa-star "></span>
-            <span class="fa fa-star "></span>
-            <span class="fa fa-star "></span>
-        </div>
-        <div class="item"> 
-            <a href=""><img title="cat" src="https://placecats.com/225/200"/></a>
-            <hr class="item" /> 
-            <a href="" class="none space"><b> Recipe Name </b></a>
-            <br>
-            <span class="fa fa-star space"></span>
-            <span class="fa fa-star "></span>
-            <span class="fa fa-star "></span>
-            <span class="fa fa-star "></span>
-            <span class="fa fa-star "></span>
-        </div>
-        <div class="item"> 
-            <a href=""><img title="cat" src="https://placecats.com/225/200"/></a>
-            <hr class="item" /> 
-            <a href="" class="none space"><b> Recipe Name </b></a>
-            <br>
-            <span class="fa fa-star space"></span>
-            <span class="fa fa-star "></span>
-            <span class="fa fa-star "></span>
-            <span class="fa fa-star "></span>
-            <span class="fa fa-star "></span>
-        </div>
-        <div class="item"> 
-            <a href=""><img title="cat" src="https://placecats.com/225/200"/></a>
-            <hr class="item" /> 
-            <a href="" class="none space"><b> Recipe Name </b></a>
-            <br>
-            <span class="fa fa-star space"></span>
-            <span class="fa fa-star "></span>
-            <span class="fa fa-star "></span>
-            <span class="fa fa-star "></span>
-            <span class="fa fa-star "></span>
-        </div>
-        <div class="item"> 
-            <a href=""><img title="cat" src="https://placecats.com/225/200"/></a>
-            <hr class="item" /> 
-            <a href="" class="none space"><b> Recipe Name </b></a>
-            <br>
-            <span class="fa fa-star space"></span>
-            <span class="fa fa-star "></span>
-            <span class="fa fa-star "></span>
-            <span class="fa fa-star "></span>
-            <span class="fa fa-star "></span>
-        </div>
-        <div class="item"> 
-            <a href=""><img title="cat" src="https://placecats.com/225/200"/></a>
-            <hr class="item" /> 
-            <a href="" class="none space"><b> Recipe Name </b></a>
-            <br>
-            <span class="fa fa-star space"></span>
-            <span class="fa fa-star "></span>
-            <span class="fa fa-star "></span>
-            <span class="fa fa-star "></span>
-            <span class="fa fa-star "></span>
-        </div>
-        <div class="item"> 
-            <a href=""><img title="cat" src="https://placecats.com/225/200"/></a>
-            <hr class="item" /> 
-            <a href="" class="none space"><b> Recipe Name </b></a>
-            <br>
-            <span class="fa fa-star space"></span>
-            <span class="fa fa-star "></span>
-            <span class="fa fa-star "></span>
-            <span class="fa fa-star "></span>
-            <span class="fa fa-star "></span>
-        </div>
+        {% endfor %}
     </div>
 {% endblock %}

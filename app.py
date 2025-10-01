@@ -1,6 +1,6 @@
 # To activate virtual environment:
 # Set-ExecutionPolicy RemoteSigned –Scope Process
-# env\Scripts\Activate.ps1
+# env\Scripts\Activate
 # flask run --debug
 
 from flask import Flask, render_template, request
@@ -13,7 +13,24 @@ def index():
 
 @app.route('/cookbook')
 def cookbook():
-    return render_template('cookbook.html')
+    r = [ 
+        {"src": "peppers2.jpg",
+        "href": "/peppers",
+        "name": "Cream Cheese Stuffed Peppers"},
+        # Add star system
+        # "rating": 4
+        {"src": "cat.jpg",
+        "href": "",
+        "name": "Recipe Name"}
+    ]
+    return render_template('cookbook.html', recipes=r)
+
+
+
+
+
+
+
 
 @app.route('/peppers')
 def peppers():
