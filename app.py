@@ -25,13 +25,6 @@ def cookbook():
     ]
     return render_template('cookbook.html', recipes=r)
 
-
-
-
-
-
-
-
 @app.route('/peppers')
 def peppers():
     return render_template('peppers.html')
@@ -53,3 +46,10 @@ def new_recipe():
 
     return render_template('enter-recipe.html')
 
+@app.route('/log-in')
+def log_in():
+    return render_template('log-in.html')
+
+@app.route('/sign-up')
+def sign_up():
+    return render_template('sign-up.html')

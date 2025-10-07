@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+<style>
+{% block styles %}
+.center-box {
+    margin: auto;
+    width: 50%;
+}
+.center-txt {
+    text-align: center;
+}
+p {
+    display: inline;
+}
+
+{% endblock %}
+</style>
+
+{% block body %}
+<article class="center-box">
+    <h3 class="center-txt"> Log In </h3>
+    <input type="email" name="email" placeholder="Enter Email or Username" aria-label="Email" autocomplete="email">
+    <input type="password" name="password" placeholder="Enter Password" aria-label="Password">
+    <input type="submit" value="Submit">
+    <p> If you do not have an account, </p><a href="/sign-up">Sign Up here. </a>
+</article>
+{% endblock %}
