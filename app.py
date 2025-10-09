@@ -3,12 +3,13 @@
 # env\Scripts\Activate
 # flask run --debug
 
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect
 
 app = Flask(__name__)
 
 @app.route('/')
 def index():
+    print("test")
     return render_template('index.html')
 
 @app.route('/cookbook')
@@ -46,10 +47,40 @@ def new_recipe():
 
     return render_template('enter-recipe.html')
 
+@app.route('/submit-recipe', methods=['POST'])
+def submit_recipe():
+    print(request.form['name'])
+    print(request.form['serving'])
+    print(request.form['prep-time'])
+    print(request.form['prep-units'])
+    print(request.form['cook-time'])
+    print(request.form['cook-units'])
+    print(request.form['amount'])
+    print(request.form['measurement'])
+    print(request.form['food'])
+    print(request.form['instruction'])
+
+    return render_template('cookbook.html')
+    
+
 @app.route('/log-in')
 def log_in():
     return render_template('log-in.html')
 
+@app.route('/submit-log-in', methods=['POST'])
+def submit_log_in():
+    print(request.form['email'])
+    print(request.form['password'])
+    # Add error checking for valid email
+    return render_template('index.html')
+
 @app.route('/sign-up')
 def sign_up():
     return render_template('sign-up.html')
+
+@app.route('/submit-sign-up', methods=['POST'])
+def submit_sign_up():
+    print(request.form['email'])
+    print(request.form['password'])
+    # Add error checking for valid email
+    return render_template('index.html')

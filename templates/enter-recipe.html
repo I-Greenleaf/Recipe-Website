@@ -28,51 +28,53 @@
 
 {% block body %}
     <h1>Create a New Recipe</h1>
-    <article>
-        <h3>Information</h3>
-        <input type="text" name="name" placeholder="Enter recipe name" aria-label="Text">
-        <div role="group">
-            <h6>Servings: </h6>
-            <input type="number" name="serving" placeholder="Enter number of servings" aria-label="Number">
-        </div>
-        <div role="group">
-            <h6>Prep Time: </h6>
-            <input type="number" name="prep-time" placeholder="Enter preperation time" aria-label="Number">
-            <select name="prep-units" aria-label="Select" required>
-                <option selected disabled value="">Select time units</option>
-                <option>Minutes</option>
-                <option>Hours</option>
-            </select>
-        </div>
-        <div role="group">
-            <h6>Cook Time: </h6>
-            <input type="number" name="cook-time" placeholder="Enter cooking time" aria-label="Number">
-            <select name="cook-units" aria-label="Select" required>
-                <option selected disabled value="">Select time units</option>
-                <option>Minutes</option>
-                <option>Hours</option>
-            </select>
-        </div>
-        <button class="outline secondary">Add image</button>
-    </article>
+    <form action="/submit-recipe" method="POST">
+        <article>
+            <h3>Information</h3>
+            <input type="text" name="name" placeholder="Enter recipe name" aria-label="Text">
+            <div role="group">
+                <h6>Servings: </h6>
+                <input type="number" name="serving" placeholder="Enter number of servings" aria-label="Number">
+            </div>
+            <div role="group">
+                <h6>Prep Time: </h6>
+                <input type="number" name="prep-time" placeholder="Enter preperation time" aria-label="Number">
+                <select name="prep-units" aria-label="Select" required>
+                    <option selected disabled value="">Select time units</option>
+                    <option>Minutes</option>
+                    <option>Hours</option>
+                </select>
+            </div>
+            <div role="group">
+                <h6>Cook Time: </h6>
+                <input type="number" name="cook-time" placeholder="Enter cooking time" aria-label="Number">
+                <select name="cook-units" aria-label="Select" required>
+                    <option selected disabled value="">Select time units</option>
+                    <option>Minutes</option>
+                    <option>Hours</option>
+                </select>
+            </div>
+            <button class="outline secondary">Add image</button>
+        </article>
 
-    <article>
-        <h3>Ingredients</h3>
-        <div role="group">
-            <input type="number" name="amount" placeholder="Enter numeric amount" aria-label="Number">
-            <!-- Potentially make measurement searchable dropdown menu -->
-            <input type="text" name="measurement" placeholder="Enter measurement type" aria-label="Text">
-            <input type="text" name="food" placeholder="Enter ingredient name" aria-label="Text">
-        </div>
-        <button class="outline secondary">Add another ingredient</button>
-    </article>
+        <article>
+            <h3>Ingredients</h3>
+            <div role="group">
+                <input type="number" name="amount" placeholder="Enter numeric amount" aria-label="Number">
+                <!-- Potentially make measurement searchable dropdown menu -->
+                <input type="text" name="measurement" placeholder="Enter measurement type" aria-label="Text">
+                <input type="text" name="food" placeholder="Enter ingredient name" aria-label="Text">
+            </div>
+            <button class="outline secondary">Add another ingredient</button>
+        </article>
 
-    <article>
-        <h3>Instructions</h3>
-        <div role="group">
-            <input type="text" name="instruction" placeholder="Enter instruction" aria-label="Text"> 
-        </div>
-        <button class="outline secondary">Add new instruction</button>
-    </article>
-    <input type="submit" value="Create Recipe">
+        <article>
+            <h3>Instructions</h3>
+            <div role="group">
+                <input type="text" name="instruction" placeholder="Enter instruction" aria-label="Text"> 
+            </div>
+            <button class="outline secondary">Add new instruction</button>
+        </article>
+        <input type="submit" value="Create Recipe">
+    </form>
 {% endblock %}
