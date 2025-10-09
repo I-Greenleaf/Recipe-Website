@@ -60,7 +60,8 @@ def submit_recipe():
     print(request.form['food'])
     print(request.form['instruction'])
 
-    return render_template('cookbook.html')
+    return cookbook()
+    
     
 
 @app.route('/log-in')
