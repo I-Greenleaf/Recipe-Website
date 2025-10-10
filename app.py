@@ -62,7 +62,6 @@ class Recipe:
         fake.add_provider(measurement_provider)
 
         self.title = fake.recipe_title()
-        self.stars = random() * 4 + 1 # Grabs float from 1 to 5
         self.author = fake.name()
         self.id = id
         # Grabs a square image, different resolutions are different images
@@ -80,19 +79,23 @@ class Recipe:
         self.instructions = []
         for i in range(randint(5,20)):
             self.instructions.append(fake.sentence())
+
         # Adds a star based on what the rating is
+        self.stars = random() * 4.1 + 1 # Grabs float from 1 to 5.1
         self.stars_html = ""
         j = self.stars
         for i in range(5):
-            j -= 1
             if j > 1:
                 self.stars_html += "<span class='fa fa-star'></span> "
             elif j > 0:
                 self.stars_html += "<span class='fa fa-star-half-full'></span> "
             else:
                 self.stars_html += "<span class='fa fa-star-o'></span> "
+            j -= 1
+        # For debugging, shows number value
+        # self.stars_html += str(round(self.stars,2)) 
 
-recipes = [Recipe(i) for i in range(30)]
+recipes = [Recipe(i) for i in range(50)]
 
 @app.route('/')
 def index():
