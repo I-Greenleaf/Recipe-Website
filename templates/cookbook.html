@@ -20,10 +20,10 @@
     }
 
     /* Classes for page orientation */
-    .parent {
+    .table {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
-        grid-template-rows: repeat(6, 1fr);
+        grid-template-rows: repeat(1, 1fr);
         grid-column-gap: 0px;
         grid-row-gap: 0px;
         margin-left: 150px; /* Moves grid to right of sidebar*/
@@ -75,18 +75,16 @@
         </fieldset>
     </nav></aside>
 
-    <div class="parent">
+    <div class="table">
         {% for r in recipes %}
         <div class="item"> 
-            <a href="{{ r['href'] }}"><img title="{{r['name']}}" src= "{{ img }}/{{ r['src'] }}" /></a>
+            <!-- <a href="{{ r['href'] }}"><img title="{{r['name']}}" src= "{{ img }}/{{ r['src'] }}" /></a> -->
+            <a href="{{ r['href'] }}"><img title="{{r['name']}}" src= "{{ r['src'] }}" /></a>
             <hr class="item" /> 
             <a href="{{ r['href'] }}" class="none space"><b> {{r['name']}} </b></a>
             <br>
-            <span class="fa fa-star space"></span>
-            <span class="fa fa-star "></span>
-            <span class="fa fa-star "></span>
-            <span class="fa fa-star "></span>
-            <span class="fa fa-star "></span>
+            <span class="space"></span>
+            {{ r['stars'] | safe }}
         </div>
         {% endfor %}
     </div>
