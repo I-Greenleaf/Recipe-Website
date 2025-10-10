@@ -5,36 +5,82 @@
     label, li {
         color: var(--text-color);
     }
-    .main-img {
+    /* .img-container {
+        width: 400px;
+        height: 300px;
+        overflow: hidden;
+        padding: 0px;
+    } */
+    .recipe-img {
         border: solid var(--text-color) 1px;
         border-radius: var(--border-rad);
-        margin-bottom: 15px;
+        /* margin-bottom: 15px; */
+        /* 4:3 aspect ratio */
+        width: 300px;
+        height: 225px;
     }
     hr {
         border-top: solid var(--text-color) 1px;
+    }
+    .description {
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+    .r-justify {
+        float: right;
+    }
+    .icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: solid var(--text-color) 2px;
+        /* padding: 5px; */
+        color:var(--text-color);
+        text-decoration: none;
     }
 {% endblock %}
 </style>
 
 {% block body %}
-    <h1> Cream Cheese Stuffed Peppers</h1>
-    <h4> 
-        Rating: 4.83/5.0
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star checked"></span>
-        (3)
-    </h4>
-    <h4> By: Zack Newton </h4>
-
-    <img title="peppers" src="{{ img }}/peppers.jpg" width=600 height="100%" class="main-img"/>
-    <!-- <div role="group" class="element">
-        <article> Prep Time: 1 hour </article>
-        <article> Cook Time: 10 minutes </article>
-    </div> -->
-    <article class="element">
+    <div class="img-container inline">
+        <img class="recipe-img" title="peppers" src="{{ img }}/peppers.jpg"/>
+    </div>
+    <div class="inline space" style="width: 700px;">
+        <h1>
+            Cream Cheese Stuffed Peppers
+            <!-- Next two lines switch depending on if owner of recipe or not -->
+            <a href=""><span class="fa fa-pencil r-justify icon" aria-hidden="false"></span></a>
+            <!-- <a href=""><span class="fa fa-bookmark-o r-justify icon" aria-hidden="false"></span></a> -->
+        </h1>
+        <h4> By: Zack Newton </h4>
+        <h4> 
+            Rating: 4.83/5.0
+            <span class="fa fa-star"></span>
+            <span class="fa fa-star"></span>
+            <span class="fa fa-star"></span>
+            <span class="fa fa-star"></span>
+            <span class="fa fa-star-half-full"></span>
+            (3) | 
+            <!-- If logged in, this is an option -->
+            <a href="">Rate Recipe</a> 
+        </h4>
+        <article>
+            <span class="fa fa-exclamation-triangle" aria-hidden="true"></span>
+            <b>Allergens:</b>
+            This recipe may contain: <b>Milk</b>. Read recipe carefully and make subsitutes as necessary.
+        </article>
+    </div>
+    <div class="description">
+        <p>
+            Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.
+            
+        </p>
+    </div>
+    
+    <article>
         Prep Time: 1 hour <br>
         Cook Time: 10 minutes <br>
         Total Time: 1 hour and 10 minutes
@@ -55,7 +101,7 @@
             <label htmlFor="4.0x">4.0x</label>
         </fieldset>
     </article>
-    <article class="element">
+    <article>
         <h3> Ingredients </h3>
         <ul>
             <li>8 bell peppers</li>
@@ -69,7 +115,7 @@
             <li>2 tsp. paprika</li>
         </ul>
     </article>
-    <article class="element">
+    <article>
         <h3> Instructions </h3>
         <ol>
             <li>Dice the onion, mushrooms, and garlic and saute in a pan over med-high heat.</li>

@@ -79,7 +79,7 @@ div.item {
     margin: 10px;
     border-radius: var(--border-rad);
 }
-img {
+.img {
     /* Top corners rounded, bottoms not */
     border-radius: var(--border-rad) var(--border-rad) 0px 0px;
     width: 100%;
@@ -121,4 +121,8 @@ h1, h3, h4, h6 {
 }
 article {
     background-color: var(--back-color);
+}
+.inline {
+    /* default is display: block; */
+    display: inline-block;
 }
