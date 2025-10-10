@@ -104,6 +104,15 @@ hr.item {
     /* Space for recipe names and stars in item */
     padding-left: 2%;
 }
+.dots {
+    /* Adds '...' to end of the recipe title if it exceeds the item box's width */
+    white-space: nowrap;        
+    overflow: hidden;
+    text-overflow: ellipsis;    
+    display: inline-block;
+    vertical-align: top;
+    width: var(--item-width);
+}
 
 
 /* Genearl */
