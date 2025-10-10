@@ -5,12 +5,19 @@
     <head>
         <!--Adds picoCSS framework: https://picocss.com/docs-->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
-
-        <!-- Used for stars, source: https://www.w3schools.com/howto/howto_css_star_rating.asp -->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         
         <!-- Link to CSS file -->
         <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+        <!-- Adds Font Awesome 4 icons -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+            <!-- Useful icons:
+            <span class="fa fa-star "></span>
+            <span class="fa fa-star-half-full "></span>
+            <span class="fa fa-star-o "></span>
+            fa fa-bookmark	
+	        fa fa-bookmark-o
+            -->
 
         <style>{% block styles %}{% endblock %}</style>
     </head>

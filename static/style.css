@@ -97,8 +97,7 @@ hr.item {
     text-decoration: none;
     color: inherit;
 }
-.checked {
-    /* For stars, cant do half stars */
+.fa-star, .fa-star-half-full, .fa-star-o {
     color: #f6bd60;
 }
 .space {
