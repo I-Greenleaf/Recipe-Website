@@ -111,7 +111,7 @@ hr.item {
     text-overflow: ellipsis;    
     display: inline-block;
     vertical-align: top;
-    width: var(--item-width);
+    width: calc(var(--item-width) - 8px);
 }
 
 
