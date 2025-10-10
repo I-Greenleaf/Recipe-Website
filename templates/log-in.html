@@ -18,6 +18,7 @@ p {
 
 {% block body %}
 <article class="center-box">
+    <a href="/"><span class="fa fa-times r-justify no-link-show" aria-hidden="true"></span></a>
     <h2 class="center-txt"> Log In </h2>
     <form action="{{ url_for('submit_log_in') }}" method="POST">
         <h4>Email or Username</h4>

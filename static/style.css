@@ -173,3 +173,7 @@ article {
     /* default is display: block; */
     display: inline-block;
 }
+.no-link-show{
+    color:var(--text-color);
+    text-decoration: none;
+}
