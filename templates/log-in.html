@@ -18,12 +18,15 @@ p {
 
 {% block body %}
 <article class="center-box">
-    <h3 class="center-txt"> Log In </h3>
+    <h2 class="center-txt"> Log In </h2>
     <form action="{{ url_for('submit_log_in') }}" method="POST">
+        <h4>Email or Username</h4>
         <input type="email" name="email" placeholder="Enter Email or Username" aria-label="Email" autocomplete="email">
+        <h4>Password</h4>
         <input type="password" name="password" placeholder="Enter Password" aria-label="Password">
-        <input type="submit" value="Submit">
+        <a href="">Forgot Password.</a>
+        <input type="submit" value="Log In">
+        <p> Don't have an account? </p><a href="/sign-up"> Sign up here. </a>
     </form>
-    <p> If you do not have an account, </p><a href="/sign-up">Sign Up here. </a>
 </article>
 {% endblock %}
