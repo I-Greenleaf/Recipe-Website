@@ -56,32 +56,35 @@ measurement_provider = DynamicProvider(
 )
 
 class Recipe:
-    def __init__(self):
+    def __init__(self, id):
         fake = Faker()
         fake.add_provider(recipe_title_provider)
         fake.add_provider(measurement_provider)
 
         self.title = fake.recipe_title()
-        self.stars = random() * 4 + 1 #Makes number 1-to five
+        self.stars = random() * 4 + 1 # Grabs float from 1 to 5
         self.author = fake.name()
-        self.ingredients = []
+        self.id = id
+        # Grabs a square image, different resolutions are different images
         temp_int = randint(100,1000)
         self.image = f"https://placecats.com/{temp_int}/{temp_int}"
+
+        self.ingredients = []
         for i in range(randint(4,10)):
             temp_ing = []
             temp_ing.append(randint(0,10))
             temp_ing.append(fake.measurement())
             temp_ing.append(fake.word())
             self.ingredients.append(temp_ing)
+
         self.instructions = []
         for i in range(randint(5,20)):
             self.instructions.append(fake.sentence())
+        # Adds a star based on what the rating is
         self.stars_html = ""
         j = self.stars
-        print(j)
         for i in range(5):
             j -= 1
-            print(j)
             if j > 1:
                 self.stars_html += "<span class='fa fa-star'></span> "
             elif j > 0:
@@ -89,52 +92,48 @@ class Recipe:
             else:
                 self.stars_html += "<span class='fa fa-star-o'></span> "
 
-recipes = [Recipe() for i in range(30)]
+recipes = [Recipe(i) for i in range(30)]
 
 @app.route('/')
 def index():
-    print("test")
     return render_template('index.html')
+
 
 @app.route('/cookbook')
 def cookbook():
     r = [ 
-        {"src": "peppers2.jpg",
-        "href": "/peppers",
-        "name": "Cream Cheese Stuffed Peppers",
-        "stars": "<span class='fa fa-star'></span> "
-                "<span class='fa fa-star'></span> "
-                "<span class='fa fa-star'></span> "
-                "<span class='fa fa-star'></span> "
-                "<span class='fa fa-star-half-full'></span> "}]
+        # {"src": "peppers2.jpg",
+        # "href": "/peppers",
+        # "name": "Cream Cheese Stuffed Peppers",
+        # "stars": "<span class='fa fa-star'></span> "
+        #         "<span class='fa fa-star'></span> "
+        #         "<span class='fa fa-star'></span> "
+        #         "<span class='fa fa-star'></span> "
+        #         "<span class='fa fa-star-half-full'></span> "}
+        ]
     for rec in recipes:
         r += [{
             "src": rec.image,
             "href": "",
             "name": rec.title,
-            "stars": rec.stars_html}]
+            "stars": rec.stars_html,
+            "id": rec.id
+            }]
 
     return render_template('cookbook.html', recipes=r)
+
 
 @app.route('/peppers')
 def peppers():
     return render_template('peppers.html')
 
-@app.route('/new-recipe', methods=['GET', 'POST'])
-def new_recipe():
-    # if request.method == 'POST':
-    #     name = request.form.get('name')
-    #     serving = request.form.get('serving')
-    #     prep_time  = request.form.get('prep-time')
-    #     prep_units  = request.form.get('prep-units')
-    #     cook_time = request.form.get('cook-time')
-    #     cook_units = request.form.get('cook-units')
-    #     amount = request.form.get('amount')
-    #     measurement = request.form.get('measurement')
-    #     food = request.form.get('food')
-    #     instruction = request.form.get('instruction')
-    #     return f"{name}, {serving}\n, {prep_time}, {prep_units}, {cook_time}, {cook_units}"
+@app.route('/recipe/<id>')
+def recipe(id=0):
+    return f"Test: {id}"
 
+
+@app.route('/new-recipe')
+def new_recipe():
     return render_template('enter-recipe.html')
 
 @app.route('/submit-recipe', methods=['POST'])
@@ -149,11 +148,9 @@ def submit_recipe():
     print(request.form['measurement'])
     print(request.form['food'])
     print(request.form['instruction'])
-
-    return cookbook()
+    return cookbook()   # Not sure how to properly redirect after form submission
     
     
-
 @app.route('/log-in')
 def log_in():
     return render_template('log-in.html')
@@ -164,6 +161,7 @@ def submit_log_in():
     print(request.form['password'])
     # Add error checking for valid email
     return render_template('index.html')
+
 
 @app.route('/sign-up')
 def sign_up():
