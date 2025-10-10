@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+
+<style> /* No effect on page. Shows colors of text in IDE. */
+{% block styles %}
+    /* Shouldnt need this here since it is in style.css but icon does not center when not in html file */
+    .icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: solid var(--text-color) 2px;
+        /* padding: 5px; */
+        color:var(--text-color);
+        text-decoration: none;
+    }
+{% endblock %}
+</style>>
+
+<!-- Getting recipe from id -->
+
+{% block body %}
+    <div class="img-container inline">
+        <img class="recipe-img" title="peppers" src="{{ img }}/peppers.jpg"/>
+    </div>
+    <!-- Make width % not px -->
+    <div class="inline space" style="width: 700px;">
+        <h1>
+            {{ r.name }}
+            <!-- Next two lines switch depending on if owner of recipe or not -->
+            <a href=""><span class="fa fa-pencil r-justify icon" aria-hidden="false"></span></a>
+            <!-- <a href=""><span class="fa fa-bookmark-o r-justify icon" aria-hidden="false"></span></a> -->
+        </h1>
+        <h4> By: {{ r.author }} </h4>
+        <h4> 
+            Rating: {{ r.rating_disp }}
+            {{ r.stars_html | safe }}
+            (3) | 
+            <!-- If logged in, this is an option -->
+            <a href="">Rate Recipe</a> 
+        </h4>
+        <article>
+            <span class="fa fa-exclamation-triangle" aria-hidden="true"></span>
+            <b>Allergens:</b>
+            This recipe may contain: <b>__?__</b>. Read recipe carefully and make subsitutes as necessary.
+        </article>
+    </div>
+
+    <article class="description">
+        {{ r.description }}
+    </article>
+    
+    <article>
+        <fieldset>
+            <legend class="txt-color"> Servings: {{ r.serving }} </legend>
+            <input type="radio" id="0.5x" name="servings" />
+            <label htmlFor="0.5x">0.5x</label>
+            <input type="radio" id="1.0x" name="servings" checked/>
+            <label htmlFor="1.0x">1.0x</label>
+            <input type="radio" id="1.5x" name="servings" />
+            <label htmlFor="1.5x">1.5x</label>
+            <input type="radio" id="2.0x" name="servings" />
+            <label htmlFor="2.0x">2.0x</label>
+            <input type="radio" id="3.0x" name="servings" />
+            <label htmlFor="3.0x">3.0x</label>
+            <input type="radio" id="4.0x" name="servings" />
+            <label htmlFor="4.0x">4.0x</label>
+        </fieldset>
+        <hr/>
+        <!-- Add proper spacing -->
+        Prep Time: ____ ____ &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+        Cook Time: ____ ____ &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+        Total Time: ____ hours and ____ minutes
+    </article>
+
+    <div class="recipe-cols">
+        <article>
+            <h3> Ingredients </h3>
+            <ul>
+                {% for i in r.ingredients %}
+                    <li>{{ i | join(' ') }}</li>
+                {% endfor %}
+            </ul>
+        </article>
+        <article>
+            <h3> Instructions </h3>
+            <ol>
+                {% for i in r.instructions %}
+                    <li>{{ i }}</li>
+                {% endfor %}
+            </ol>
+        </article>
+    </div>
+{% endblock %}

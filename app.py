@@ -12,8 +12,8 @@ from random import random, randint
 app = Flask(__name__)
 
 # Creates random recipes
-recipe_title_provider = DynamicProvider(
-    provider_name="recipe_title",
+recipe_name_provider = DynamicProvider(
+    provider_name="recipe_name",
     elements=["Creamy Garlic Alfredo Pasta",
         "Spicy Chicken Tikka Masala",
         "Lemon Herb Roasted Salmon",
@@ -58,18 +58,21 @@ measurement_provider = DynamicProvider(
 class Recipe:
     def __init__(self, id):
         fake = Faker()
-        fake.add_provider(recipe_title_provider)
+        fake.add_provider(recipe_name_provider)
         fake.add_provider(measurement_provider)
 
-        self.title = fake.recipe_title()
+        self.name = fake.recipe_name()
         self.author = fake.name()
         self.id = id
+        self.description = fake.paragraph()
+        self.serving = randint(2,6)
+
         # Grabs a square image, different resolutions are different images
         temp_int = randint(100,1000)
         self.image = f"https://placecats.com/{temp_int}/{temp_int}"
 
         self.ingredients = []
-        for i in range(randint(4,10)):
+        for i in range(randint(8,20)):
             temp_ing = []
             temp_ing.append(randint(0,10))
             temp_ing.append(fake.measurement())
@@ -81,9 +84,9 @@ class Recipe:
             self.instructions.append(fake.sentence())
 
         # Adds a star based on what the rating is
-        self.stars = random() * 4.1 + 1 # Grabs float from 1 to 5.1
+        self.rating = random() * 4.1 + 1 # Grabs float from 1 to 5.1
         self.stars_html = ""
-        j = self.stars
+        j = self.rating
         for i in range(5):
             if j > 1:
                 self.stars_html += "<span class='fa fa-star'></span> "
@@ -92,8 +95,7 @@ class Recipe:
             else:
                 self.stars_html += "<span class='fa fa-star-o'></span> "
             j -= 1
-        # For debugging, shows number value
-        # self.stars_html += str(round(self.stars,2)) 
+        self.rating_disp = round(self.rating,2)
 
 recipes = [Recipe(i) for i in range(50)]
 
@@ -118,7 +120,7 @@ def cookbook():
         r += [{
             "src": rec.image,
             "href": "",
-            "name": rec.title,
+            "name": rec.name,
             "stars": rec.stars_html,
             "id": rec.id
             }]
@@ -131,8 +133,11 @@ def peppers():
     return render_template('peppers.html')
 
 @app.route('/recipe/<id>')
-def recipe(id=0):
-    return f"Test: {id}"
+def recipe_ex(id=0):
+    print(id)
+    recipe = recipes[int(id)]
+    print(recipe)
+    return render_template('recipe-example.html', r=recipe)
 
 
 @app.route('/new-recipe')

@@ -79,9 +79,9 @@
         {% for r in recipes %}
         <div class="item"> 
             <!-- <a href="{{ r['href'] }}"><img title="{{r['name']}}" src= "{{ img }}/{{ r['src'] }}" /></a> -->
-            <a href="{{ url_for('recipe', id=r.id) }}"><img class="img" title="{{r['name']}}" src= "{{ r['src'] }}" /></a>
+            <a href="{{ url_for('recipe_ex', id=r.id) }}"><img class="img" title="{{r['name']}}" src= "{{ r['src'] }}" /></a>
             <hr class="item" /> 
-            <a href="{{ url_for('recipe', id=r.id) }}" class="none space"><b class="dots"> {{r['name']}} </b></a>
+            <a href="{{ url_for('recipe_ex', id=r.id) }}" class="none space"><b class="dots"> {{r['name']}} </b></a>
             <br>
             <span class="space"></span>
             {{ r['stars'] | safe }}

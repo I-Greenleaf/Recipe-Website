@@ -114,6 +114,53 @@ hr.item {
     width: calc(var(--item-width) - 8px);
 }
 
+/* Recipe Pages */
+label, li {
+    color: var(--text-color);
+}
+/* .img-container {
+    width: 400px;
+    height: 300px;
+    overflow: hidden;
+    padding: 0px;
+} */
+.recipe-img {
+    border: solid var(--text-color) 1px;
+    border-radius: var(--border-rad);
+    /* margin-bottom: 15px; */
+    /* 4:3 aspect ratio */
+    width: 300px;
+    height: 225px;
+}
+hr {
+    border-top: solid var(--text-color) 1px;
+}
+.description {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.r-justify {
+    float: right;
+}
+.icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: solid var(--text-color) 2px;
+    /* padding: 5px; */
+    color:var(--text-color);
+    text-decoration: none;
+}
+.recipe-cols {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    grid-template-rows: 1fr;
+    grid-column-gap: 15px;
+    grid-row-gap: 0px;
+}
 
 /* Genearl */
 h1, h3, h4, h6 {
