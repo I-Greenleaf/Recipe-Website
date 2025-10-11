@@ -1,112 +1,23 @@
 {% extends "base.html" %}
 
 {% block styles %}
-    h3 { margin-top: 20px; } 
+    h3 {
+        margin-top: 20px;
+        width: 95%;
+        margin-bottom: 0px;
+        padding-bottom: 0px;
+        display: inline-block;
+    }
 {% endblock %}
 
 {% block body %}
-<!-- Need a way to prevent long names from breaking box -->
-<h3>Breakfast</h3>
-<!-- Possible scroll bar: https://css-tricks.com/pure-css-horizontal-scrolling/ -->
+<h3>
+    Breakfast
+    <a href=""><span class="fa fa-arrow-right r-justify icon" aria-hidden="false"></span></a>
+    <a href=""><span class="fa fa-arrow-left r-justify icon" aria-hidden="false"></span></a>
+</h3>
 <div class="grid">
-    <div class="item"> 
-        <a href=""><img title="cat" src="https://placecats.com/225/200"/></a>
-        <hr class="item" /> 
-        <a href="" class="none space"><b> Recipe Name </b></a>
-        <br>
-        <span class="fa fa-star space"></span>
-        <span class="fa fa-star "></span>
-        <span class="fa fa-star "></span>
-        <span class="fa fa-star "></span>
-        <span class="fa fa-star "></span>
-    </div>
-    <div class="item"> 
-        <a href=""><img title="cat" src="https://placecats.com/225/200"/></a>
-        <hr class="item" /> 
-        <a href="" class="none space"><b> Recipe Name </b></a>
-        <br>
-        <span class="fa fa-star space"></span>
-        <span class="fa fa-star "></span>
-        <span class="fa fa-star "></span>
-        <span class="fa fa-star "></span>
-        <span class="fa fa-star "></span>
-    </div>
-    <div class="item"> 
-        <a href=""><img title="cat" src="https://placecats.com/225/200"/></a>
-        <hr class="item" /> 
-        <a href="" class="none space"><b> Recipe Name </b></a>
-        <br>
-        <span class="fa fa-star space"></span>
-        <span class="fa fa-star "></span>
-        <span class="fa fa-star "></span>
-        <span class="fa fa-star "></span>
-        <span class="fa fa-star "></span>
-    </div>
-    <div class="item"> 
-        <a href=""><img title="cat" src="https://placecats.com/225/200"/></a>
-        <hr class="item" /> 
-        <a href="" class="none space"><b> Recipe Name </b></a>
-        <br>
-        <span class="fa fa-star space"></span>
-        <span class="fa fa-star "></span>
-        <span class="fa fa-star "></span>
-        <span class="fa fa-star "></span>
-        <span class="fa fa-star "></span>
-    </div>
-</div>
-
-<h3>Lunch</h3>
-<div class="grid">
-    <div class="item"> 
-        <a href=""><img title="cat" src="https://placecats.com/225/200"/></a>
-        <hr class="item" /> 
-        <a href="" class="none space"><b> Recipe Name </b></a>
-        <br>
-        <span class="fa fa-star space"></span>
-        <span class="fa fa-star "></span>
-        <span class="fa fa-star "></span>
-        <span class="fa fa-star "></span>
-        <span class="fa fa-star "></span>
-    </div>
-    <div class="item"> 
-        <a href=""><img title="cat" src="https://placecats.com/225/200"/></a>
-        <hr class="item" /> 
-        <a href="" class="none space"><b> Recipe Name </b></a>
-        <br>
-        <span class="fa fa-star space"></span>
-        <span class="fa fa-star "></span>
-        <span class="fa fa-star "></span>
-        <span class="fa fa-star "></span>
-        <span class="fa fa-star "></span>
-    </div>
-    <div class="item"> 
-        <a href=""><img title="cat" src="https://placecats.com/225/200"/></a>
-        <hr class="item" /> 
-        <a href="" class="none space"><b> Recipe Name </b></a>
-        <br>
-        <span class="fa fa-star space"></span>
-        <span class="fa fa-star "></span>
-        <span class="fa fa-star "></span>
-        <span class="fa fa-star "></span>
-        <span class="fa fa-star "></span>
-    </div>
-    <div class="item"> 
-        <a href=""><img title="cat" src="https://placecats.com/225/200"/></a>
-        <hr class="item" /> 
-        <a href="" class="none space"><b> Recipe Name </b></a>
-        <br>
-        <span class="fa fa-star space"></span>
-        <span class="fa fa-star "></span>
-        <span class="fa fa-star "></span>
-        <span class="fa fa-star "></span>
-        <span class="fa fa-star "></span>
-    </div>
-</div>
-    
-
-<h3>Dinner</h3>
-<div class="grid">
-    <div class="item">   
+     <div class="item">   
         <a href="/peppers"><img class="img" title="cat" src="{{ img }}/peppers2.jpg"/></a>
         <hr class="item" /> 
         <a href="/peppers" class="none space"><b> Cream Cheese Stuffed Peppers </b></a>
@@ -117,134 +28,92 @@
         <span class="fa fa-star"></span>
         <span class="fa fa-star-half-full"></span>    
     </div>
-    <div class="item"> 
-        <a href=""><img title="cat" src="https://placecats.com/225/200"/></a>
-        <hr class="item" /> 
-        <a href="" class="none space"><b> Recipe Name </b></a>
-        <br>
-        <span class="fa fa-star space"></span>
-        <span class="fa fa-star "></span>
-        <span class="fa fa-star "></span>
-        <span class="fa fa-star "></span>
-        <span class="fa fa-star "></span>
-    </div>
-    <div class="item"> 
-        <a href=""><img title="cat" src="https://placecats.com/225/200"/></a>
-        <hr class="item" /> 
-        <a href="" class="none space"><b> Recipe Name </b></a>
-        <br>
-        <span class="fa fa-star space"></span>
-        <span class="fa fa-star "></span>
-        <span class="fa fa-star "></span>
-        <span class="fa fa-star "></span>
-        <span class="fa fa-star "></span>
-    </div>
-    <div class="item"> 
-        <a href=""><img title="cat" src="https://placecats.com/225/200"/></a>
-        <hr class="item" /> 
-        <a href="" class="none space"><b> Recipe Name </b></a>
-        <br>
-        <span class="fa fa-star space"></span>
-        <span class="fa fa-star "></span>
-        <span class="fa fa-star "></span>
-        <span class="fa fa-star "></span>
-        <span class="fa fa-star "></span>
-    </div> 
+    {% for r in recipes[1:4] %}
+        <div class="item"> 
+            <!-- <a href="{{ r['href'] }}"><img title="{{r['name']}}" src= "{{ img }}/{{ r['src'] }}" /></a> -->
+            <a href="{{ url_for('recipe_ex', id=r.id) }}"><img class="img" title="{{r['name']}}" src= "{{ r['src'] }}" /></a>
+            <hr class="item" /> 
+            <a href="{{ url_for('recipe_ex', id=r.id) }}" class="none space"><b class="dots"> {{r['name']}} </b></a>
+            <br>
+            <span class="space"></span>
+            {{ r['stars'] | safe }}
+        </div>
+    {% endfor %}
 </div>
 
-<h3>Desserts</h3>
+<h3>
+    Lunch
+    <a href=""><span class="fa fa-arrow-right r-justify icon" aria-hidden="false"></span></a>
+    <a href=""><span class="fa fa-arrow-left r-justify icon" aria-hidden="false"></span></a>
+</h3>
 <div class="grid">
-    <div class="item"> 
-        <a href=""><img title="cat" src="https://placecats.com/225/200"/></a>
-        <hr class="item" /> 
-        <a href="" class="none space"><b> Recipe Name </b></a>
-        <br>
-        <span class="fa fa-star space"></span>
-        <span class="fa fa-star "></span>
-        <span class="fa fa-star "></span>
-        <span class="fa fa-star "></span>
-        <span class="fa fa-star "></span>
-    </div>
-    <div class="item"> 
-        <a href=""><img title="cat" src="https://placecats.com/225/200"/></a>
-        <hr class="item" /> 
-        <a href="" class="none space"><b> Recipe Name </b></a>
-        <br>
-        <span class="fa fa-star space"></span>
-        <span class="fa fa-star "></span>
-        <span class="fa fa-star "></span>
-        <span class="fa fa-star "></span>
-        <span class="fa fa-star "></span>
-    </div>
-    <div class="item"> 
-        <a href=""><img title="cat" src="https://placecats.com/225/200"/></a>
-        <hr class="item" /> 
-        <a href="" class="none space"><b> Recipe Name </b></a>
-        <br>
-        <span class="fa fa-star space"></span>
-        <span class="fa fa-star "></span>
-        <span class="fa fa-star "></span>
-        <span class="fa fa-star "></span>
-        <span class="fa fa-star "></span>
-    </div>
-    <div class="item"> 
-        <a href=""><img title="cat" src="https://placecats.com/225/200"/></a>
-        <hr class="item" /> 
-        <a href="" class="none space"><b> Recipe Name </b></a>
-        <br>
-        <span class="fa fa-star space"></span>
-        <span class="fa fa-star "></span>
-        <span class="fa fa-star "></span>
-        <span class="fa fa-star "></span>
-        <span class="fa fa-star "></span>
-    </div>
+    {% for r in recipes[5:9] %}
+        <div class="item"> 
+            <!-- <a href="{{ r['href'] }}"><img title="{{r['name']}}" src= "{{ img }}/{{ r['src'] }}" /></a> -->
+            <a href="{{ url_for('recipe_ex', id=r.id) }}"><img class="img" title="{{r['name']}}" src= "{{ r['src'] }}" /></a>
+            <hr class="item" /> 
+            <a href="{{ url_for('recipe_ex', id=r.id) }}" class="none space"><b class="dots"> {{r['name']}} </b></a>
+            <br>
+            <span class="space"></span>
+            {{ r['stars'] | safe }}
+        </div>
+    {% endfor %}
+</div>
+    
+<h3>
+    Dinner
+    <a href=""><span class="fa fa-arrow-right r-justify icon" aria-hidden="false"></span></a>
+    <a href=""><span class="fa fa-arrow-left r-justify icon" aria-hidden="false"></span></a>
+</h3>
+<div class="grid">
+    {% for r in recipes[10:14] %}
+        <div class="item"> 
+            <!-- <a href="{{ r['href'] }}"><img title="{{r['name']}}" src= "{{ img }}/{{ r['src'] }}" /></a> -->
+            <a href="{{ url_for('recipe_ex', id=r.id) }}"><img class="img" title="{{r['name']}}" src= "{{ r['src'] }}" /></a>
+            <hr class="item" /> 
+            <a href="{{ url_for('recipe_ex', id=r.id) }}" class="none space"><b class="dots"> {{r['name']}} </b></a>
+            <br>
+            <span class="space"></span>
+            {{ r['stars'] | safe }}
+        </div>
+    {% endfor %}
 </div>
 
-<h3>Snacks</h3>
+<h3>
+    Desserts
+    <a href=""><span class="fa fa-arrow-right r-justify icon" aria-hidden="false"></span></a>
+    <a href=""><span class="fa fa-arrow-left r-justify icon" aria-hidden="false"></span></a>
+</h3>
 <div class="grid">
-    <div class="item"> 
-        <a href=""><img title="cat" src="https://placecats.com/225/200"/></a>
-        <hr class="item" /> 
-        <a href="" class="none space"><b> Recipe Name </b></a>
-        <br>
-        <span class="fa fa-star space"></span>
-        <span class="fa fa-star "></span>
-        <span class="fa fa-star "></span>
-        <span class="fa fa-star "></span>
-        <span class="fa fa-star "></span>
-    </div>
-    <div class="item"> 
-        <a href=""><img title="cat" src="https://placecats.com/225/200"/></a>
-        <hr class="item" /> 
-        <a href="" class="none space"><b> Recipe Name </b></a>
-        <br>
-        <span class="fa fa-star space"></span>
-        <span class="fa fa-star "></span>
-        <span class="fa fa-star "></span>
-        <span class="fa fa-star "></span>
-        <span class="fa fa-star "></span>
-    </div>
-    <div class="item"> 
-        <a href=""><img title="cat" src="https://placecats.com/225/200"/></a>
-        <hr class="item" /> 
-        <a href="" class="none space"><b> Recipe Name </b></a>
-        <br>
-        <span class="fa fa-star space"></span>
-        <span class="fa fa-star "></span>
-        <span class="fa fa-star "></span>
-        <span class="fa fa-star "></span>
-        <span class="fa fa-star "></span>
-    </div>
-    <div class="item"> 
-        <a href=""><img title="cat" src="https://placecats.com/225/200"/></a>
-        <hr class="item" /> 
-        <a href="" class="none space"><b> Recipe Name </b></a>
-        <br>
-        <span class="fa fa-star space"></span>
-        <span class="fa fa-star "></span>
-        <span class="fa fa-star "></span>
-        <span class="fa fa-star "></span>
-        <span class="fa fa-star "></span>
-    </div>
+    {% for r in recipes[15:19] %}
+        <div class="item"> 
+            <!-- <a href="{{ r['href'] }}"><img title="{{r['name']}}" src= "{{ img }}/{{ r['src'] }}" /></a> -->
+            <a href="{{ url_for('recipe_ex', id=r.id) }}"><img class="img" title="{{r['name']}}" src= "{{ r['src'] }}" /></a>
+            <hr class="item" /> 
+            <a href="{{ url_for('recipe_ex', id=r.id) }}" class="none space"><b class="dots"> {{r['name']}} </b></a>
+            <br>
+            <span class="space"></span>
+            {{ r['stars'] | safe }}
+        </div>
+    {% endfor %}
+</div>
+
+<h3>
+    Snacks
+    <a href=""><span class="fa fa-arrow-right r-justify icon" aria-hidden="false"></span></a>
+    <a href=""><span class="fa fa-arrow-left r-justify icon" aria-hidden="false"></span></a>
+</h3>
+<div class="grid">
+    {% for r in recipes[20:24] %}
+        <div class="item"> 
+            <!-- <a href="{{ r['href'] }}"><img title="{{r['name']}}" src= "{{ img }}/{{ r['src'] }}" /></a> -->
+            <a href="{{ url_for('recipe_ex', id=r.id) }}"><img class="img" title="{{r['name']}}" src= "{{ r['src'] }}" /></a>
+            <hr class="item" /> 
+            <a href="{{ url_for('recipe_ex', id=r.id) }}" class="none space"><b class="dots"> {{r['name']}} </b></a>
+            <br>
+            <span class="space"></span>
+            {{ r['stars'] | safe }}
+        </div>
+    {% endfor %}
 </div>
 {% endblock %}

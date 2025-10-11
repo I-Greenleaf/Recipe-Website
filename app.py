@@ -101,7 +101,16 @@ recipes = [Recipe(i) for i in range(50)]
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    r = []
+    for rec in recipes:
+        r += [{
+            "src": rec.image,
+            "href": "",
+            "name": rec.name,
+            "stars": rec.stars_html,
+            "id": rec.id
+            }]
+    return render_template('index.html', recipes=r)
 
 
 @app.route('/cookbook')
