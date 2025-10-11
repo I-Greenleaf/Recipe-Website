@@ -1,23 +1,5 @@
 {% extends "base.html" %}
 
-<style> /* No effect on page. Shows colors of text in IDE. */
-{% block styles %}
-    /* Shouldnt need this here since it is in style.css but icon does not center when not in html file */
-    .icon {
-        width: 40px;
-        height: 40px;
-        border-radius: 20px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        border: solid var(--text-color) 2px;
-        /* padding: 5px; */
-        color:var(--text-color);
-        text-decoration: none;
-    }
-{% endblock %}
-</style>
-
 {% block body %}
     <div class="img-container inline">
         <img class="recipe-img" title="peppers" src="{{ img }}/peppers.jpg"/>

@@ -1,21 +1,5 @@
 {% extends "base.html" %}
 
-<style>
-{% block styles %}
-.center-box {
-    margin: auto;
-    width: 50%;
-}
-.center-txt {
-    text-align: center;
-}
-p {
-    display: inline;
-}
-
-{% endblock %}
-</style>
-
 {% block body %}
 <article class="center-box">
     <a href="/"><span class="fa fa-times r-justify no-link-show" aria-hidden="true"></span></a>
@@ -27,7 +11,7 @@ p {
         <input type="password" name="password" placeholder="Enter Password" aria-label="Password">
         <a href="">Forgot Password.</a>
         <input type="submit" value="Log In">
-        <p> Don't have an account? </p><a href="/sign-up"> Sign up here. </a>
+        <p class="inline"> Don't have an account? </p><a href="/sign-up"> Sign up here. </a>
     </form>
 </article>
 {% endblock %}
