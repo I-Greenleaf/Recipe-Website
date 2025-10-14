@@ -66,6 +66,26 @@ class Recipe:
         self.id = id
         self.description = fake.paragraph()
         self.serving = randint(2,6)
+        self.reviews = randint(1,200)
+        
+        self.prep_time = randint(10, 75)
+        self.cook_time = randint(30, 90)
+        self.total_time = self.prep_time + self.cook_time
+        if self.prep_time >= 60:
+            self.prep_unit = "hr"
+            self.prep_time = round(self.prep_time / 60, 2)
+        else:
+            self.prep_unit = "min"
+        
+        if self.cook_time >= 60:
+            self.cook_unit = "hr"
+            self.cook_time = round(self.cook_time / 60, 2)
+        else:
+            self.cook_unit = "min"
+
+        temp = self.total_time
+        self.total_time = [int(round(temp / 60, 0)), round(temp % 60, 2)]
+
 
         # Grabs a square image, different resolutions are different images
         temp_int = randint(100,1000)
@@ -96,6 +116,8 @@ class Recipe:
                 self.stars_html += "<span class='fa fa-star-o'></span> "
             j -= 1
         self.rating_disp = round(self.rating,2)
+        if self.rating_disp > 5:
+            self.rating_disp = 5.0
 
 recipes = [Recipe(i) for i in range(50)]
 

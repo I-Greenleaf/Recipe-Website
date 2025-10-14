@@ -10,7 +10,7 @@
             <h4> 
                 Rating: {{ r.rating_disp }}
                 {{ r.stars_html | safe }}
-                (3) | 
+                ({{ r.reviews }}) | 
                 <!-- If logged in, this is an option -->
                 <a href="">Rate Recipe</a> 
             </h4>
@@ -49,9 +49,9 @@
         </fieldset>
         <hr/>
         <!-- Add proper spacing -->
-        Prep Time: ____ ____ &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
-        Cook Time: ____ ____ &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
-        Total Time: ____ hours and ____ minutes
+        Prep Time: {{ r.prep_time }} {{ r.prep_unit }} &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+        Cook Time: {{ r.cook_time }} {{ r.cook_unit }} &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+        Total Time: {{ r.total_time[0] }} hr and {{ r.total_time[1] }} min
     </article>
 
     <div class="recipe-cols">
