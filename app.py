@@ -1,7 +1,15 @@
 # To activate virtual environment:
-# Set-ExecutionPolicy RemoteSigned –Scope Process
 # env\Scripts\Activate
 # flask run --debug
+
+# To generate db:
+# flask db init
+# flask db upgrade
+
+# To update db:
+# flask db migrate
+# flask db upgrade
+# sqlite_web app.db -p 5050
 
 from flask import Flask, render_template, request, redirect
 import os
@@ -15,42 +23,93 @@ from random import random, randint
 
 basedir=os.path.abspath(os.path.dirname(__file__)) # Computer finds directory of project
 app = Flask(__name__)
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///" + os.path.join(basedir + "app.db")
-# app.db defines database filename
-db = SQLAlchemy(app)
-# db object represents the database
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///" + os.path.join(basedir, "app.db") # app.db defines database filename
+db = SQLAlchemy(app) # db object represents the database
 migrate = Migrate(app, db)
+ 
 
-# Example class
-class Material(db.Model): #Material is now a subclass of Model which is a class from the db
-    # index=True, optimizes column so this is searchable
-    # :so.Mapped[str] is a type hint that tells the db what type the 
+
+class User(db.Model):
     id:so.Mapped[int] = so.mapped_column(primary_key=True)
-    name:so.Mapped[str] = so.mapped_column(index=True, default="A name") 
-    cost:so.Mapped[float] = so.mapped_column(index=True, default=0.00)
-    desciption:so.Mapped[str]  = so.mapped_column(default="A description")
-    quantity:so.Mapped[int] = so.mapped_column(default=0)
-
+    username:so.Mapped[str] = so.mapped_column(default="Default username")
+    email:so.Mapped[str] = so.mapped_column(default="Default email")
+    password:so.Mapped[str] = so.mapped_column(default="Default password")
+    defaultVisibility:so.Mapped[int] = so.mapped_column(default=1)
+    # Private = 0
+    # Link only = 1
+    # Public = 2
     def __init__(self):
         pass
 
-@app.route('/materials')
-def view_materials():
-    query = sa.select(Material)
-    d = db.sessopm.scalars(query).all()
+class Recipe(db.Model):
+    id:so.Mapped[int] = so.mapped_column(primary_key=True)
+    name:so.Mapped[str] = so.mapped_column(index=True, default="Default name")
+    servings:so.Mapped[int] = so.mapped_column(default=0)
+    prepTime:so.Mapped[float] = so.mapped_column(default=0.0)
+    prepUnit:so.Mapped[str] = so.mapped_column(default="Default unit")
+    cookTime:so.Mapped[float] = so.mapped_column(default=0.0)
+    cookUnit:so.Mapped[str] = so.mapped_column(default="Default unit")
+    description:so.Mapped[str] = so.mapped_column(default="Default description")
+    instructions:so.Mapped[str] = so.mapped_column(default="Default instructions")
+    visibility:so.Mapped[int] = so.mapped_column(index=True, default=1)
+    # Private = 0
+    # Link only = 1
+    # Public = 2
+    image:so.Mapped[str] = so.mapped_column(default='Image string')
+    author_id:so.Mapped[int] = so.mapped_column(sa.ForeignKey(User.id))
+    def __init__(self):
+        pass
 
-    if request.method == 'POST':
-        print("form subimitted with name")
-        obj = Material()
-        db.session.add(obj)
-    db.session.commit()
 
+class Ingredient(db.Model):
+    id:so.Mapped[int] = so.mapped_column(primary_key=True)
+    name:so.Mapped[str] = so.mapped_column(index=True, default="Default name") 
+    def __init__(self):
+        pass
 
-# To generate db:
-# flask db init
-# flask db upgrade
+class IngredientEntry(db.Model):
+    id:so.Mapped[int] = so.mapped_column(primary_key=True)
+    amount:so.Mapped[float] = so.mapped_column(default=0.0)
+    unit:so.Mapped[str] = so.mapped_column(default="Default unit")
+    ingredient_id:so.Mapped[int] = so.mapped_column(sa.ForeignKey(User.id))
+    recipe_id:so.Mapped[int] = so.mapped_column(sa.ForeignKey(Recipe.id))
+    def __init__(self):
+        pass
 
-# Creates random recipes
+class Substitute(db.Model):
+    id:so.Mapped[int] = so.mapped_column(primary_key=True)
+    amount:so.Mapped[float] = so.mapped_column(default=0.0)
+    unit:so.Mapped[str] = so.mapped_column(default="Default unit")
+    ingredient_id:so.Mapped[int] = so.mapped_column(sa.ForeignKey(Ingredient.id))
+    ingredientEntry_id:so.Mapped[int] = so.mapped_column(sa.ForeignKey(IngredientEntry.id))
+    recipe_id:so.Mapped[int] = so.mapped_column(sa.ForeignKey(Recipe.id))
+    def __init__(self):
+        pass
+
+class CookbookEntry(db.Model):
+    id:so.Mapped[int] = so.mapped_column(primary_key=True)
+    user_id:so.Mapped[int] = so.mapped_column(sa.ForeignKey(User.id))
+    recipe_id:so.Mapped[int] = so.mapped_column(sa.ForeignKey(Recipe.id))
+    def __init__(self):
+        pass
+
+class Rating(db.Model):
+    id:so.Mapped[int] = so.mapped_column(primary_key=True)
+    value:so.Mapped[float] = so.mapped_column(default=0.0)
+    recipe_id:so.Mapped[int] = so.mapped_column(sa.ForeignKey(Recipe.id))
+    user_id:so.Mapped[int] = so.mapped_column(sa.ForeignKey(User.id))
+    def __init__(self):
+        pass
+
+class Note(db.Model):
+    id:so.Mapped[int] = so.mapped_column(primary_key=True)
+    text:so.Mapped[str] = so.mapped_column(default="")
+    recipe_id:so.Mapped[int] = so.mapped_column(sa.ForeignKey(Recipe.id))
+    user_id:so.Mapped[int] = so.mapped_column(sa.ForeignKey(User.id))
+    def __init__(self):
+        pass
+
+# # Creates random recipes
 # recipe_name_provider = DynamicProvider(
 #     provider_name="recipe_name",
 #     elements=["Creamy Garlic Alfredo Pasta",
@@ -160,6 +219,25 @@ def view_materials():
 
 
 
+
+
+# @app.route("/materials", methods=["GET", "POST"])
+# def view_materials():
+#     # create a database query
+#     query = sa.select(Material)
+#     d = db.session.scalars(query).all()
+    
+#     if request.method == 'GET':
+#         # do GET stuff
+#         pass
+#     elif request.method == 'POST':
+#         # do post stuff, like store form field data
+#         # print(f"Form submitted with name {request.form["name"]}")
+#         obj = Material()
+#         db.session.add(obj)
+
+#     db.session.commit() # commit changes at the end of the route!
+#     return render_template('enter-recipe.html', materials=d)
 
 @app.route('/')
 def index():
