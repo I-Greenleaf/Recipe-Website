@@ -44,6 +44,7 @@ class User(db.Model):
 class Recipe(db.Model):
     id:so.Mapped[int] = so.mapped_column(primary_key=True)
     name:so.Mapped[str] = so.mapped_column(index=True, default="Default name")
+    meal:so.Mapped[str] = so.mapped_column(index=True, default="Default meal")
     servings:so.Mapped[int] = so.mapped_column(default=0)
     prepTime:so.Mapped[float] = so.mapped_column(default=0.0)
     prepUnit:so.Mapped[str] = so.mapped_column(default="Default unit")
@@ -109,113 +110,113 @@ class Note(db.Model):
     def __init__(self):
         pass
 
-# # Creates random recipes
-# recipe_name_provider = DynamicProvider(
-#     provider_name="recipe_name",
-#     elements=["Creamy Garlic Alfredo Pasta",
-#         "Spicy Chicken Tikka Masala",
-#         "Lemon Herb Roasted Salmon",
-#         "Classic Beef Lasagna",
-#         "Honey Glazed Carrots",
-#         "Baked Macaroni and Cheese",
-#         "Mushroom Risotto",
-#         "Thai Green Curry with Jasmine Rice",
-#         "BBQ Pulled Pork Sandwiches",
-#         "Caprese Salad with Balsamic Drizzle",
-#         "Butternut Squash Soup",
-#         "Shrimp Scampi Linguine",
-#         "Margherita Pizza",
-#         "Korean Beef Bulgogi",
-#         "Chicken and Waffles",
-#         "Mediterranean Quinoa Bowl",
-#         "Crispy Tofu Stir-Fry",
-#         "Spinach and Feta Stuffed Peppers",
-#         "Teriyaki Glazed Chicken Wings",
-#         "Garlic Butter Steak Bites",
-#         "Eggplant Parmesan",
-#         "Sweet Potato Black Bean Tacos",
-#         "Lobster Bisque",
-#         "Breakfast Burrito Supreme",
-#         "Blueberry Lemon Muffins",
-#         "Homemade Cinnamon Rolls",
-#         "Grilled Veggie Panini",
-#         "Creamy Tomato Basil Soup",
-#         "Chocolate Lava Cake",
-#         "Mango Coconut Pudding"
-#     ],
-# )
-# measurement_provider = DynamicProvider(
-#     provider_name="measurement",
-#     elements=["cups",
-#         "oz",
-#         "",
-#         "lbs."
-#     ],
-# )
-# class Recipe:
-#     def __init__(self, id):
-#         fake = Faker()
-#         fake.add_provider(recipe_name_provider)
-#         fake.add_provider(measurement_provider)
+# Creates random recipes
+recipe_name_provider = DynamicProvider(
+    provider_name="recipe_name",
+    elements=["Creamy Garlic Alfredo Pasta",
+        "Spicy Chicken Tikka Masala",
+        "Lemon Herb Roasted Salmon",
+        "Classic Beef Lasagna",
+        "Honey Glazed Carrots",
+        "Baked Macaroni and Cheese",
+        "Mushroom Risotto",
+        "Thai Green Curry with Jasmine Rice",
+        "BBQ Pulled Pork Sandwiches",
+        "Caprese Salad with Balsamic Drizzle",
+        "Butternut Squash Soup",
+        "Shrimp Scampi Linguine",
+        "Margherita Pizza",
+        "Korean Beef Bulgogi",
+        "Chicken and Waffles",
+        "Mediterranean Quinoa Bowl",
+        "Crispy Tofu Stir-Fry",
+        "Spinach and Feta Stuffed Peppers",
+        "Teriyaki Glazed Chicken Wings",
+        "Garlic Butter Steak Bites",
+        "Eggplant Parmesan",
+        "Sweet Potato Black Bean Tacos",
+        "Lobster Bisque",
+        "Breakfast Burrito Supreme",
+        "Blueberry Lemon Muffins",
+        "Homemade Cinnamon Rolls",
+        "Grilled Veggie Panini",
+        "Creamy Tomato Basil Soup",
+        "Chocolate Lava Cake",
+        "Mango Coconut Pudding"
+    ],
+)
+measurement_provider = DynamicProvider(
+    provider_name="measurement",
+    elements=["cups",
+        "oz",
+        "",
+        "lbs."
+    ],
+)
+class FakeRecipe:
+    def __init__(self, id):
+        fake = Faker()
+        fake.add_provider(recipe_name_provider)
+        fake.add_provider(measurement_provider)
 
-#         self.name = fake.recipe_name()
-#         self.author = fake.name()
-#         self.id = id
-#         self.description = fake.paragraph()
-#         self.serving = randint(2,6)
-#         self.reviews = randint(1,200)
+        self.name = fake.recipe_name()
+        self.author = fake.name()
+        self.id = id
+        self.description = fake.paragraph()
+        self.serving = randint(2,6)
+        self.reviews = randint(1,200)
         
-#         self.prep_time = randint(10, 75)
-#         self.cook_time = randint(30, 90)
-#         self.total_time = self.prep_time + self.cook_time
-#         if self.prep_time >= 60:
-#             self.prep_unit = "hr"
-#             self.prep_time = round(self.prep_time / 60, 2)
-#         else:
-#             self.prep_unit = "min"
+        self.prep_time = randint(10, 75)
+        self.cook_time = randint(30, 90)
+        self.total_time = self.prep_time + self.cook_time
+        if self.prep_time >= 60:
+            self.prep_unit = "hr"
+            self.prep_time = round(self.prep_time / 60, 2)
+        else:
+            self.prep_unit = "min"
         
-#         if self.cook_time >= 60:
-#             self.cook_unit = "hr"
-#             self.cook_time = round(self.cook_time / 60, 2)
-#         else:
-#             self.cook_unit = "min"
+        if self.cook_time >= 60:
+            self.cook_unit = "hr"
+            self.cook_time = round(self.cook_time / 60, 2)
+        else:
+            self.cook_unit = "min"
 
-#         temp = self.total_time
-#         self.total_time = [int(round(temp / 60, 0)), round(temp % 60, 2)]
+        temp = self.total_time
+        self.total_time = [int(round(temp / 60, 0)), round(temp % 60, 2)]
 
 
-#         # Grabs a square image, different resolutions are different images
-#         temp_int = randint(100,1000)
-#         self.image = f"https://placecats.com/{temp_int}/{temp_int}"
+        # Grabs a square image, different resolutions are different images
+        temp_int = randint(100,1000)
+        self.image = f"https://placecats.com/{temp_int}/{temp_int}"
 
-#         self.ingredients = []
-#         for i in range(randint(8,20)):
-#             temp_ing = []
-#             temp_ing.append(randint(0,10))
-#             temp_ing.append(fake.measurement())
-#             temp_ing.append(fake.word())
-#             self.ingredients.append(temp_ing)
+        self.ingredients = []
+        for i in range(randint(8,20)):
+            temp_ing = []
+            temp_ing.append(randint(0,10))
+            temp_ing.append(fake.measurement())
+            temp_ing.append(fake.word())
+            self.ingredients.append(temp_ing)
 
-#         self.instructions = []
-#         for i in range(randint(5,20)):
-#             self.instructions.append(fake.sentence())
+        self.instructions = []
+        for i in range(randint(5,20)):
+            self.instructions.append(fake.sentence())
 
-#         # Adds a star based on what the rating is
-#         self.rating = random() * 4.1 + 1 # Grabs float from 1 to 5.1
-#         self.stars_html = ""
-#         j = self.rating
-#         for i in range(5):
-#             if j > 1:
-#                 self.stars_html += "<span class='fa fa-star'></span> "
-#             elif j > 0:
-#                 self.stars_html += "<span class='fa fa-star-half-full'></span> "
-#             else:
-#                 self.stars_html += "<span class='fa fa-star-o'></span> "
-#             j -= 1
-#         self.rating_disp = round(self.rating,2)
-#         if self.rating_disp > 5:
-#             self.rating_disp = 5.0
-# recipes = [Recipe(i) for i in range(50)]
+        # Adds a star based on what the rating is
+        self.rating = random() * 4.1 + 1 # Grabs float from 1 to 5.1
+        self.stars_html = ""
+        j = self.rating
+        for i in range(5):
+            if j > 1:
+                self.stars_html += "<span class='fa fa-star'></span> "
+            elif j > 0:
+                self.stars_html += "<span class='fa fa-star-half-full'></span> "
+            else:
+                self.stars_html += "<span class='fa fa-star-o'></span> "
+            j -= 1
+        self.rating_disp = round(self.rating,2)
+        if self.rating_disp > 5:
+            self.rating_disp = 5.0
+recipes = [FakeRecipe(i) for i in range(30)]
 
 
 
@@ -241,6 +242,15 @@ class Note(db.Model):
 
 @app.route('/')
 def index():
+    query = sa.select(Recipe)
+    d = db.session.scalars(query).all()
+    breakfast = []
+    lunch = []
+    dinner = []
+    snacks = []
+    desserts = []
+    # Need to add a querry for Rating to as to have a way to select which recipes should show up
+    # Each meal should have 11 elements then a button to see more
     r = []
     for rec in recipes:
         r += [{
@@ -250,21 +260,25 @@ def index():
             "stars": rec.stars_html,
             "id": rec.id
             }]
-    return render_template('index.html', recipes=r)
+    return render_template('index.html', recipes=r, breakfast=breakfast, lunch=lunch, dinner=dinner, snacks=snacks, desserts=desserts)
 
 
 @app.route('/cookbook')
 def cookbook():
-    r = [ 
-        # {"src": "peppers2.jpg",
-        # "href": "/peppers",
-        # "name": "Cream Cheese Stuffed Peppers",
-        # "stars": "<span class='fa fa-star'></span> "
-        #         "<span class='fa fa-star'></span> "
-        #         "<span class='fa fa-star'></span> "
-        #         "<span class='fa fa-star'></span> "
-        #         "<span class='fa fa-star-half-full'></span> "}
-        ]
+    query = sa.select(CookbookEntry)
+    d = db.session.scalars(query).all()
+    # return all Recipes that are linked to the user in the entry
+    r = []
+    # r = [ 
+    #     {"src": "peppers2.jpg",
+    #     "href": "/peppers",
+    #     "name": "Cream Cheese Stuffed Peppers",
+    #     "stars": "<span class='fa fa-star'></span> "
+    #             "<span class='fa fa-star'></span> "
+    #             "<span class='fa fa-star'></span> "
+    #             "<span class='fa fa-star'></span> "
+    #             "<span class='fa fa-star-half-full'></span> "}
+    #     ]
     for rec in recipes:
         r += [{
             "src": rec.image,
@@ -283,6 +297,7 @@ def peppers():
 
 @app.route('/recipe/<id>')
 def recipe_ex(id=0):
+    recipe = []
     recipe = recipes[int(id)]
     return render_template('recipe-example.html', r=recipe)
 
@@ -293,27 +308,31 @@ def new_recipe():
 
 @app.route('/submit-recipe', methods=['POST'])
 def submit_recipe():
-    print(request.form['name'])
-    print(request.form['serving'])
-    print(request.form['prep-time'])
-    print(request.form['prep-units'])
-    print(request.form['cook-time'])
-    print(request.form['cook-units'])
-    print(request.form['amount'])
-    print(request.form['measurement'])
-    print(request.form['food'])
-    print(request.form['instruction'])
-    r = Recipe(0)
+    # print(request.form['name'])
+    # print(request.form['serving'])
+    # print(request.form['prep-time'])
+    # print(request.form['prep-units'])
+    # print(request.form['cook-time'])
+    # print(request.form['cook-units'])
+    # print(request.form['amount'])
+    # print(request.form['measurement'])
+    # print(request.form['food'])
+    # print(request.form['instruction'])
+    r = Recipe()
     r.name = request.form['name']
     r.serving = request.form['serving']
     r.prep_time = request.form['prep-time']
     r.prep_unit = request.form['prep-units']
     r.cook_time = request.form['cook-time']
     r.cook_unit = request.form['cook-units']
-    r.instructions = [request.form['amount'], request.form['measurement'], request.form['food']]
-    r.instructions = [request.form['instruction']]
-    recipes[1] = r
-    return cookbook()   # Not sure how to properly redirect after form submission
+    # request.form['amount'] 
+    # request.form['measurement']
+    # r.ingredient = request.form['food']
+    r.instructions = request.form['instruction']
+    r.author_id = 0
+    db.session.add(r)
+    db.session.commit()
+    return redirect('/cookbook')   # Not sure how to properly redirect after form submission
     
     
 @app.route('/log-in')
@@ -325,7 +344,7 @@ def submit_log_in():
     print(request.form['email'])
     print(request.form['password'])
     # Add error checking for valid email
-    return render_template('index.html')
+    return redirect('/')
 
 
 @app.route('/sign-up')
@@ -337,4 +356,4 @@ def submit_sign_up():
     print(request.form['email'])
     print(request.form['password'])
     # Add error checking for valid email
-    return render_template('index.html')
+    return redirect('/')
