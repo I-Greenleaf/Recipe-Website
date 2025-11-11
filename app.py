@@ -11,35 +11,46 @@
 # flask db upgrade
 # sqlite_web app.db -p 5050
 
-from flask import Flask, render_template, request, redirect
+from flask import Flask, flash, render_template, request, redirect, url_for
 import os
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 import sqlalchemy.orm as so
 import sqlalchemy as sa
+from werkzeug.security import generate_password_hash, check_password_hash
+from flask_login import LoginManager, UserMixin, current_user, login_user, logout_user
 from faker import Faker
 from faker.providers import DynamicProvider
 from random import random, randint
 
-basedir=os.path.abspath(os.path.dirname(__file__)) # Computer finds directory of project
 app = Flask(__name__)
+app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
+login = LoginManager(app)
+
+basedir=os.path.abspath(os.path.dirname(__file__)) # Computer finds directory of project
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///" + os.path.join(basedir, "app.db") # app.db defines database filename
 db = SQLAlchemy(app) # db object represents the database
 migrate = Migrate(app, db)
  
 
 
-class User(db.Model):
+class User(UserMixin, db.Model):
     id:so.Mapped[int] = so.mapped_column(primary_key=True)
     username:so.Mapped[str] = so.mapped_column(default="Default username")
     email:so.Mapped[str] = so.mapped_column(default="Default email")
-    password:so.Mapped[str] = so.mapped_column(default="Default password")
+    password_hash:so.Mapped[str] = so.mapped_column(default="Default password")
     defaultVisibility:so.Mapped[int] = so.mapped_column(default=1)
     # Private = 0
     # Link only = 1
     # Public = 2
     def __init__(self):
         pass
+
+    def set_password(self, password):
+        self.password_hash = generate_password_hash(password)
+
+    def check_password(self, password):
+        return check_password_hash(self.password_hash, password)
 
 class Recipe(db.Model):
     id:so.Mapped[int] = so.mapped_column(primary_key=True)
@@ -220,26 +231,6 @@ recipes = [FakeRecipe(i) for i in range(30)]
 
 
 
-
-
-# @app.route("/materials", methods=["GET", "POST"])
-# def view_materials():
-#     # create a database query
-#     query = sa.select(Material)
-#     d = db.session.scalars(query).all()
-    
-#     if request.method == 'GET':
-#         # do GET stuff
-#         pass
-#     elif request.method == 'POST':
-#         # do post stuff, like store form field data
-#         # print(f"Form submitted with name {request.form["name"]}")
-#         obj = Material()
-#         db.session.add(obj)
-
-#     db.session.commit() # commit changes at the end of the route!
-#     return render_template('enter-recipe.html', materials=d)
-
 @app.route('/')
 def index():
     query = sa.select(Recipe)
@@ -332,28 +323,68 @@ def submit_recipe():
     r.author_id = 0
     db.session.add(r)
     db.session.commit()
-    return redirect('/cookbook')   # Not sure how to properly redirect after form submission
-    
-    
+    return redirect(url_for('cookbook'))   # Not sure how to properly redirect after form submission
+
+
+
+
+
+# User authentication routes
+
+# Is there a way to not erase all the data when redirecting back to the page
+# flash() secret key???
+# When do I even need to use  methods=['GET', 'POST'], Ive never used it so far
+
+@login.user_loader
+def load_user(id):
+    return db.session.get(User, int(id))
+
 @app.route('/log-in')
 def log_in():
+    if current_user.is_authenticated:
+        return redirect(url_for('index'))
     return render_template('log-in.html')
 
 @app.route('/submit-log-in', methods=['POST'])
 def submit_log_in():
-    print(request.form['email'])
-    print(request.form['password'])
-    # Add error checking for valid email
-    return redirect('/')
+    user = db.session.scalar(sa.select(User).where(User.username == request.form['username']))
+    if user is None or not user.check_password(request.form['password']):
+        # flash('Invalid username or password')
+        return redirect(url_for('log_in'))
+    login_user(user, remember=request.form)
+    # Dont know what the correct input for remember is
+    return redirect(url_for('index'))
 
 
 @app.route('/sign-up')
 def sign_up():
+    if current_user.is_authenticated:
+        return redirect(url_for('index'))
     return render_template('sign-up.html')
 
+
+# Need add some type of uniqueness 
 @app.route('/submit-sign-up', methods=['POST'])
 def submit_sign_up():
-    print(request.form['email'])
-    print(request.form['password'])
-    # Add error checking for valid email
-    return redirect('/')
+    # Add error checking for valid email?
+    if request.form['email1'] != request.form['email2']:
+        # Flash not working
+        flash('Emails do not match')
+        return redirect(url_for('sign_up'))
+    
+    user = User()
+    user.username = request.form['username']
+    user.email = request.form['email1']
+    hash = generate_password_hash(request.form['password'])
+    user.password_hash = hash
+    db.session.add(user)
+    db.session.commit()
+    login_user(user, remember=request.form)
+
+    return redirect(url_for('index'))
+
+
+@app.route('/log-out')
+def logout():
+    logout_user()
+    return redirect(url_for('index'))
