@@ -37,7 +37,7 @@ migrate = Migrate(app, db)
 class User(UserMixin, db.Model):
     id:so.Mapped[int] = so.mapped_column(primary_key=True)
     username:so.Mapped[str] = so.mapped_column(default="Default username")
-    email:so.Mapped[str] = so.mapped_column(default="Default email")
+    email:so.Mapped[str] = so.mapped_column(default="Default email", unique=True)
     password_hash:so.Mapped[str] = so.mapped_column(default="Default password")
     defaultVisibility:so.Mapped[int] = so.mapped_column(default=1)
     # Private = 0
@@ -230,7 +230,6 @@ class FakeRecipe:
 recipes = [FakeRecipe(i) for i in range(30)]
 
 
-
 @app.route('/')
 def index():
     query = sa.select(Recipe)
@@ -323,7 +322,7 @@ def submit_recipe():
     r.author_id = 0
     db.session.add(r)
     db.session.commit()
-    return redirect(url_for('cookbook'))   # Not sure how to properly redirect after form submission
+    return redirect(url_for('cookbook'))  
 
 
 
@@ -332,7 +331,7 @@ def submit_recipe():
 # User authentication routes
 
 # Is there a way to not erase all the data when redirecting back to the page
-# flash() secret key???
+# flash()
 # When do I even need to use  methods=['GET', 'POST'], Ive never used it so far
 
 @login.user_loader
@@ -341,17 +340,20 @@ def load_user(id):
 
 @app.route('/log-in')
 def log_in():
+    # if request.method == 'GET':
+    # Need to add methods=['GET', 'POST'] to route
     if current_user.is_authenticated:
         return redirect(url_for('index'))
     return render_template('log-in.html')
 
 @app.route('/submit-log-in', methods=['POST'])
 def submit_log_in():
-    user = db.session.scalar(sa.select(User).where(User.username == request.form['username']))
+    user = db.session.scalar(sa.select(User).where(User.username == request.form['usernameOrEmail'] or 
+                                                   User.email == request.form['usernameOrEmail']))
     if user is None or not user.check_password(request.form['password']):
         # flash('Invalid username or password')
-        return redirect(url_for('log_in'))
-    login_user(user, remember=request.form)
+        return 'Failed'#redirect(url_for('log_in'))
+    login_user(user)
     # Dont know what the correct input for remember is
     return redirect(url_for('index'))
 
