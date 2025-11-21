@@ -1,91 +1,17 @@
-{% extends "base.html" %}
+{% extends "sidebar-template.html" %}
 
-<style> /* No effect on page. Shows colors of text in IDE. */
-{% block styles %}
-    /* Classes for side nav bar */
-    label, .legend {
-        /* color did not apply when just listing legend element
-            added it as a class */
-        color: var(--text-color);
-    }
-    input[type=checkbox] {
-        background-color: var(--back-color);
-        border: solid var(--text-color) 2px;
-    }
-    input[type=checkbox]:checked {
-        /* #0172AD is the default azure blue color for the checkbox for PicoCSS */
-        background-color: #0172AD;
-        /* Want to check the checkmark to be --back-color and not white
-            accent-color does not work */
-    }
-
-    /* Classes for page orientation */
-    .table {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        grid-template-rows: repeat(1, 1fr);
-        grid-column-gap: 0px;
-        grid-row-gap: 0px;
-        margin-left: 150px; /* Moves grid to right of sidebar*/
-    }
-    .side {
-        position: fixed;
-        height: 100%;
-    }
+{% block cookbook %}
+    <!-- Recipe Collection Choice -->
+    <fieldset>
+        <legend class="legend">Recipes:</legend>
+        <label>
+            <input type="checkbox" name="my" />
+            My Recipes
+        </label>
+        <label>
+            <input type="checkbox" name="saved" />
+            Saved Recipes
+        </label>
+    </fieldset>
 {% endblock %}
-</style>
-{% block body %}
-    <!-- Side Navagation Bar -->
-    <aside><nav class="side">
-        <!-- Recipe Collection Choice -->
-        <fieldset>
-            <legend class="legend">Recipes:</legend>
-            <label>
-                <input type="checkbox" name="my" />
-                My Recipes
-            </label>
-            <label>
-                <input type="checkbox" name="saved" />
-                Saved Recipes
-            </label>
-        </fieldset>
-        <!-- Meal Choice -->
-        <fieldset>
-            <legend class="legend">Meal:</legend>
-            <label>
-                <input type="checkbox" name="breakfast" />
-                Breakfast
-            </label>
-            <label>
-                <input type="checkbox" name="lunch" />
-                Lunch
-            </label>
-            <label>
-                <input type="checkbox" name="dinner" />
-                Dinner
-            </label>
-            <label>
-                <input type="checkbox" name="desert" />
-                Dessert
-            </label>
-            <label class="link-txt-color" >
-                <input type="checkbox" name="snacks" />
-                Snacks
-            </label>
-        </fieldset>
-    </nav></aside>
 
-    <div class="table">
-        {% for r in recipes %}
-        <div class="item"> 
-            <!-- <a href="{{ r['href'] }}"><img title="{{r['name']}}" src= "{{ img }}/{{ r['src'] }}" /></a> -->
-            <a href="{{ url_for('recipe_ex', id=r.id) }}"><img class="img" title="{{r['name']}}" src= "{{ r['src'] }}" /></a>
-            <hr class="item" /> 
-            <a href="{{ url_for('recipe_ex', id=r.id) }}" class="none space"><b class="dots"> {{r['name']}} </b></a>
-            <br>
-            <span class="space"></span>
-            {{ r['stars'] | safe }}
-        </div>
-        {% endfor %}
-    </div>
-{% endblock %}

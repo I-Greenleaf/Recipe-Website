@@ -252,7 +252,6 @@ def index():
             }]
     return render_template('index.html', recipes=r, breakfast=breakfast, lunch=lunch, dinner=dinner, snacks=snacks, desserts=desserts)
 
-
 @app.route('/cookbook')
 @login_required
 def cookbook():
@@ -281,7 +280,11 @@ def cookbook():
 
     return render_template('cookbook.html', recipes=r)
 
+@app.route('/search')
+def search():
+    return render_template('search.html')
 
+# Display Recipes
 @app.route('/peppers')
 def peppers():
     return render_template('peppers.html')
@@ -290,7 +293,7 @@ def peppers():
 def recipe_ex(id=0):
     recipe = []
     recipe = recipes[int(id)]
-    return render_template('recipe-example.html', r=recipe)
+    return render_template('recipe-template.html', r=recipe)
 
 
 @app.route('/new-recipe')
