@@ -18,7 +18,8 @@ from flask_migrate import Migrate
 import sqlalchemy.orm as so
 import sqlalchemy as sa
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask_login import LoginManager, UserMixin, current_user, login_user, logout_user
+from flask_login import LoginManager, UserMixin, current_user, login_user, logout_user, login_required
+import re
 from faker import Faker
 from faker.providers import DynamicProvider
 from random import random, randint
@@ -26,17 +27,16 @@ from random import random, randint
 app = Flask(__name__)
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 login = LoginManager(app)
+login.login_view = 'log_in'
 
 basedir=os.path.abspath(os.path.dirname(__file__)) # Computer finds directory of project
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///" + os.path.join(basedir, "app.db") # app.db defines database filename
 db = SQLAlchemy(app) # db object represents the database
 migrate = Migrate(app, db)
- 
-
 
 class User(UserMixin, db.Model):
     id:so.Mapped[int] = so.mapped_column(primary_key=True)
-    username:so.Mapped[str] = so.mapped_column(default="Default username")
+    username:so.Mapped[str] = so.mapped_column(default="Default username", unique=True)
     email:so.Mapped[str] = so.mapped_column(default="Default email", unique=True)
     password_hash:so.Mapped[str] = so.mapped_column(default="Default password")
     defaultVisibility:so.Mapped[int] = so.mapped_column(default=1)
@@ -254,6 +254,7 @@ def index():
 
 
 @app.route('/cookbook')
+@login_required
 def cookbook():
     query = sa.select(CookbookEntry)
     d = db.session.scalars(query).all()
@@ -293,36 +294,23 @@ def recipe_ex(id=0):
 
 
 @app.route('/new-recipe')
+@login_required
 def new_recipe():
-    return render_template('enter-recipe.html')
-
-@app.route('/submit-recipe', methods=['POST'])
-def submit_recipe():
-    # print(request.form['name'])
-    # print(request.form['serving'])
-    # print(request.form['prep-time'])
-    # print(request.form['prep-units'])
-    # print(request.form['cook-time'])
-    # print(request.form['cook-units'])
-    # print(request.form['amount'])
-    # print(request.form['measurement'])
-    # print(request.form['food'])
-    # print(request.form['instruction'])
-    r = Recipe()
-    r.name = request.form['name']
-    r.serving = request.form['serving']
-    r.prep_time = request.form['prep-time']
-    r.prep_unit = request.form['prep-units']
-    r.cook_time = request.form['cook-time']
-    r.cook_unit = request.form['cook-units']
-    # request.form['amount'] 
-    # request.form['measurement']
-    # r.ingredient = request.form['food']
-    r.instructions = request.form['instruction']
-    r.author_id = 0
-    db.session.add(r)
-    db.session.commit()
-    return redirect(url_for('cookbook'))  
+    if request.method == 'GET':
+        return render_template('enter-recipe.html')
+    elif request.method == 'POST':
+        r = Recipe()
+        r.name = request.form['name']
+        r.serving = request.form['serving']
+        r.prep_time = request.form['prep-time']
+        r.prep_unit = request.form['prep-units']
+        r.cook_time = request.form['cook-time']
+        r.cook_unit = request.form['cook-units']
+        r.instructions = request.form['instruction']
+        r.author_id = current_user.id
+        db.session.add(r)
+        db.session.commit()
+        return redirect(url_for('cookbook')) 
 
 
 
@@ -331,60 +319,81 @@ def submit_recipe():
 # User authentication routes
 
 # Is there a way to not erase all the data when redirecting back to the page
-# flash()
-# When do I even need to use  methods=['GET', 'POST'], Ive never used it so far
 
 @login.user_loader
 def load_user(id):
     return db.session.get(User, int(id))
 
-@app.route('/log-in')
+@app.route('/log-in', methods=['GET', 'POST'])
 def log_in():
-    # if request.method == 'GET':
-    # Need to add methods=['GET', 'POST'] to route
-    if current_user.is_authenticated:
-        return redirect(url_for('index'))
-    return render_template('log-in.html')
+    if request.method == 'GET':
+        if current_user.is_authenticated:
+            return redirect(url_for('index'))
+        return render_template('log-in.html')
+    if request.method == 'POST':
+        # To check if the entry is a username or email, first check if it is the username
+        # If there is no user that makes that username, check if an email does
+        user = db.session.scalar(sa.select(User).where(User.username == request.form['usernameOrEmail']))
+        if user is None:
+            user = db.session.scalar(sa.select(User).where(User.email == request.form['usernameOrEmail']))
+        if user is None or not user.check_password(request.form['password']):
+            flash('Invalid username or password!')
+            return redirect(url_for('log_in'))
+        else:
+            login_user(user)
+            return redirect(url_for('index'))
 
-@app.route('/submit-log-in', methods=['POST'])
-def submit_log_in():
-    user = db.session.scalar(sa.select(User).where(User.username == request.form['usernameOrEmail'] or 
-                                                   User.email == request.form['usernameOrEmail']))
-    if user is None or not user.check_password(request.form['password']):
-        # flash('Invalid username or password')
-        return 'Failed'#redirect(url_for('log_in'))
-    login_user(user)
-    # Dont know what the correct input for remember is
-    return redirect(url_for('index'))
-
-
-@app.route('/sign-up')
+regexEmail = r"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,7}"
+@app.route('/sign-up', methods=['GET', 'POST'])
 def sign_up():
-    if current_user.is_authenticated:
-        return redirect(url_for('index'))
-    return render_template('sign-up.html')
-
-
-# Need add some type of uniqueness 
-@app.route('/submit-sign-up', methods=['POST'])
-def submit_sign_up():
-    # Add error checking for valid email?
-    if request.form['email1'] != request.form['email2']:
-        # Flash not working
-        flash('Emails do not match')
-        return redirect(url_for('sign_up'))
-    
-    user = User()
-    user.username = request.form['username']
-    user.email = request.form['email1']
-    hash = generate_password_hash(request.form['password'])
-    user.password_hash = hash
-    db.session.add(user)
-    db.session.commit()
-    login_user(user, remember=request.form)
-
-    return redirect(url_for('index'))
-
+    if request.method == 'GET':
+        if current_user.is_authenticated:
+            return redirect(url_for('index'))
+        return render_template('sign-up.html')
+    elif request.method == 'POST':
+        error = False
+        # Checks if username is already used
+        user = db.session.scalar(sa.select(User).where(User.username == request.form['username']))
+        if user is not None:
+            flash('Username already used, please use a different username.')
+            error = True
+        # Checks if email is already used
+        user = db.session.scalar(sa.select(User).where(User.email == request.form['email']))
+        if user is not None:
+            flash('Email already used, please use a different email.')
+            error = True
+        # Redundant email validator
+        if re.fullmatch(regexEmail, request.form['email']):
+            flash('Email is not valid, please retry.')
+            error = True
+        # Need to check usernames and emails against each other as you can log in with either
+        # Checks if email is already used as a username
+        user = db.session.scalar(sa.select(User).where(User.email == request.form['username']))
+        if user is not None:
+            flash('Please use a different username.')
+            error = True
+         # Checks if email is already used as a username
+        user = db.session.scalar(sa.select(User).where(User.username == request.form['email']))
+        if user is not None:
+            flash('Please use a different email.')
+            error = True
+        # Checks that passwords match
+        if request.form['password1'] != request.form['password2']:
+            flash('Passwords do not match.')
+            error = True
+        # Doesn't allow sign up if there was an issue/error with username, email, or password
+        if error:
+            return redirect(url_for('sign_up'))
+        else:
+            user = User()
+            user.username = request.form['username']
+            user.email = request.form['email']
+            hash = generate_password_hash(request.form['password1'])
+            user.password_hash = hash
+            db.session.add(user)
+            db.session.commit()
+            login_user(user, remember=request.form)
+            return redirect(url_for('index'))
 
 @app.route('/log-out')
 def logout():

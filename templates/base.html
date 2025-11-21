@@ -39,11 +39,11 @@
                     <!-- <li><a href="enter-recipe.html"><img title="new-recipe" src="NewRecipe2.png" width=70% height=80%/></a></li> -->
                     <li><a href="/new-recipe" class="link-txt-color">Create a New Recipe</a></li>
                     <li><a href="/cookbook" class="link-txt-color">My Cookbook</a></li>
-                    <li><a href="" class="link-txt-color">Settings</a></li>
                     {% if current_user.is_anonymous %}
-                    <li><a href="/log-in" class="link-txt-color">Log In</a></li>
+                        <li><a href="/log-in" class="link-txt-color">Log In</a></li>
                     {% else %}
-                    <li><a href="/log-out" class="link-txt-color">Log Out</a></li>
+                        <li><a href="" class="link-txt-color">Settings</a></li>
+                        <li><a href="/log-out" class="link-txt-color">Log Out</a></li>
                     {% endif %}
                     <!-- <li>
                         <details class="dropdown">
@@ -58,7 +58,16 @@
                 </ul>
             </nav>
             <div class="page">
-            {% block body %}{% endblock %}
+                {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        <article class=flashes>
+                        {% for message in messages %}
+                        <b>{{ message }}</b>
+                        {% endfor %}
+                        </article>
+                    {% endif %}
+                {% endwith %}
+                {% block body %}{% endblock %}
             </div>
         </main>
     </body>

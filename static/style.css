@@ -183,7 +183,12 @@ a.icon {
 .center-txt {
     text-align: center;
 }
-
+.flashes {
+    margin: auto;
+    width: 50%;
+    text-align: center;
+    margin-bottom: 20px;
+}
 
 /* Genearl */
 h1, h2, h3, h4, h6 {
