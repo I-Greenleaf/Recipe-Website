@@ -57,9 +57,9 @@ class Recipe(db.Model):
     name:so.Mapped[str] = so.mapped_column(index=True, default="Default name")
     meal:so.Mapped[str] = so.mapped_column(index=True, default="Default meal")
     servings:so.Mapped[int] = so.mapped_column(default=0)
-    prepTime:so.Mapped[float] = so.mapped_column(default=0.0)
+    prepTime:so.Mapped[float] = so.mapped_column(default=-1.0)
     prepUnit:so.Mapped[str] = so.mapped_column(default="Default unit")
-    cookTime:so.Mapped[float] = so.mapped_column(default=0.0)
+    cookTime:so.Mapped[float] = so.mapped_column(default=-1.0)
     cookUnit:so.Mapped[str] = so.mapped_column(default="Default unit")
     description:so.Mapped[str] = so.mapped_column(default="Default description")
     instructions:so.Mapped[str] = so.mapped_column(default="Default instructions")
@@ -296,21 +296,32 @@ def recipe_ex(id=0):
     return render_template('recipe-template.html', r=recipe)
 
 
-@app.route('/new-recipe')
+@app.route('/new-recipe', methods=['GET', 'POST'])
 @login_required
 def new_recipe():
     if request.method == 'GET':
-        return render_template('enter-recipe.html')
+        return render_template('create-recipe.html')
     elif request.method == 'POST':
         r = Recipe()
         r.name = request.form['name']
-        r.serving = request.form['serving']
-        r.prep_time = request.form['prep-time']
-        r.prep_unit = request.form['prep-units']
-        r.cook_time = request.form['cook-time']
-        r.cook_unit = request.form['cook-units']
+        r.servings = request.form['serving']
+        r.prepTime = request.form['prep-time']
+        r.prepUnit = request.form['prep-units']
+        r.cookTime = request.form['cook-time']
+        r.cookUnit = request.form['cook-units']
         r.instructions = request.form['instruction']
         r.author_id = current_user.id
+        
+        # for i in ingredients
+        ing = Ingredient()
+        ing.name = request.form['food']
+
+        ingEntry = IngredientEntry()
+        ingEntry.amount = request.form['amount']
+        ingEntry.unit = request.form['measurement']
+        # foreign key to ingredient_id
+        # foreign key to recipe_id
+
         db.session.add(r)
         db.session.commit()
         return redirect(url_for('cookbook')) 
@@ -343,7 +354,7 @@ def log_in():
             flash('Invalid username or password!')
             return redirect(url_for('log_in'))
         else:
-            login_user(user)
+            login_user(user, remember=request.form)
             return redirect(url_for('index'))
 
 regexEmail = r"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,7}"
@@ -366,7 +377,7 @@ def sign_up():
             flash('Email already used, please use a different email.')
             error = True
         # Redundant email validator
-        if re.fullmatch(regexEmail, request.form['email']):
+        if not re.fullmatch(regexEmail, request.form['email']):
             flash('Email is not valid, please retry.')
             error = True
         # Need to check usernames and emails against each other as you can log in with either
