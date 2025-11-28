@@ -1,3 +1,15 @@
 {% extends "sidebar-template.html" %}
 
-{% block cookbook %}{% endblock %}
+{% block fields %}
+<fieldset>
+    <legend>Search by:</legend>
+    <label>
+        <input type="radio" name="searchBy" checked />
+        Top Rated
+    </label>
+    <label>
+        <input type="radio" name="searchBy" />
+        Random
+    </label>
+    </fieldset>
+{% endblock %}

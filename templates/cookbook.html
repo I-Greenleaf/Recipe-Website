@@ -1,6 +1,6 @@
 {% extends "sidebar-template.html" %}
 
-{% block cookbook %}
+{% block fields %}
     <!-- Recipe Collection Choice -->
     <fieldset>
         <legend class="legend">Recipes:</legend>
@@ -11,6 +11,30 @@
         <label>
             <input type="checkbox" name="saved" />
             Saved Recipes
+        </label>
+    </fieldset>
+    <!-- Meal Choice -->
+    <fieldset>
+        <legend class="legend">Meal:</legend>
+        <label>
+            <input type="checkbox" name="breakfast" />
+            Breakfast
+        </label>
+        <label>
+            <input type="checkbox" name="lunch" />
+            Lunch
+        </label>
+        <label>
+            <input type="checkbox" name="dinner" />
+            Dinner
+        </label>
+        <label>
+            <input type="checkbox" name="desert" />
+            Dessert
+        </label>
+        <label class="link-txt-color" >
+            <input type="checkbox" name="snacks" />
+            Snacks
         </label>
     </fieldset>
 {% endblock %}
