@@ -39,7 +39,7 @@ class User(UserMixin, db.Model):
     username:so.Mapped[str] = so.mapped_column(default="Default username", unique=True)
     email:so.Mapped[str] = so.mapped_column(default="Default email", unique=True)
     password_hash:so.Mapped[str] = so.mapped_column(default="Default password")
-    defaultVisibility:so.Mapped[int] = so.mapped_column(default=1)
+    # defaultVisibility:so.Mapped[int] = so.mapped_column(default=1)
     # Private = 0
     # Link only = 1
     # Public = 2
@@ -63,7 +63,7 @@ class Recipe(db.Model):
     cookUnit:so.Mapped[str] = so.mapped_column(default="Default unit")
     description:so.Mapped[str] = so.mapped_column(default="Default description")
     instructions:so.Mapped[str] = so.mapped_column(default="Default instructions")
-    visibility:so.Mapped[int] = so.mapped_column(index=True, default=1)
+    # visibility:so.Mapped[int] = so.mapped_column(index=True, default=1)
     # Private = 0
     # Link only = 1
     # Public = 2
@@ -75,28 +75,28 @@ class Recipe(db.Model):
 
 class Ingredient(db.Model):
     id:so.Mapped[int] = so.mapped_column(primary_key=True)
-    name:so.Mapped[str] = so.mapped_column(index=True, default="Default name") 
+    name:so.Mapped[str] = so.mapped_column(index=True, default="N/A") 
     def __init__(self):
         pass
 
 class IngredientEntry(db.Model):
     id:so.Mapped[int] = so.mapped_column(primary_key=True)
     amount:so.Mapped[float] = so.mapped_column(default=0.0)
-    unit:so.Mapped[str] = so.mapped_column(default="Default unit")
+    unit:so.Mapped[str] = so.mapped_column(default="")
     ingredient_id:so.Mapped[int] = so.mapped_column(sa.ForeignKey(User.id))
     recipe_id:so.Mapped[int] = so.mapped_column(sa.ForeignKey(Recipe.id))
     def __init__(self):
         pass
 
-class Substitute(db.Model):
-    id:so.Mapped[int] = so.mapped_column(primary_key=True)
-    amount:so.Mapped[float] = so.mapped_column(default=0.0)
-    unit:so.Mapped[str] = so.mapped_column(default="Default unit")
-    ingredient_id:so.Mapped[int] = so.mapped_column(sa.ForeignKey(Ingredient.id))
-    ingredientEntry_id:so.Mapped[int] = so.mapped_column(sa.ForeignKey(IngredientEntry.id))
-    recipe_id:so.Mapped[int] = so.mapped_column(sa.ForeignKey(Recipe.id))
-    def __init__(self):
-        pass
+# class Substitute(db.Model):
+#     id:so.Mapped[int] = so.mapped_column(primary_key=True)
+#     amount:so.Mapped[float] = so.mapped_column(default=0.0)
+#     unit:so.Mapped[str] = so.mapped_column(default="Default unit")
+#     ingredient_id:so.Mapped[int] = so.mapped_column(sa.ForeignKey(Ingredient.id))
+#     ingredientEntry_id:so.Mapped[int] = so.mapped_column(sa.ForeignKey(IngredientEntry.id))
+#     recipe_id:so.Mapped[int] = so.mapped_column(sa.ForeignKey(Recipe.id))
+#     def __init__(self):
+#         pass
 
 class CookbookEntry(db.Model):
     id:so.Mapped[int] = so.mapped_column(primary_key=True)
@@ -176,6 +176,8 @@ class FakeRecipe:
         self.description = fake.paragraph()
         self.serving = randint(2,6)
         self.reviews = randint(1,200)
+        meals = ['Breakfast', 'Lunch', 'Dinner', 'Snacks', 'Dessert']
+        self.meal = meals[randint(0,4)]
         
         self.prep_time = randint(10, 75)
         self.cook_time = randint(30, 90)
@@ -230,17 +232,69 @@ class FakeRecipe:
 recipes = [FakeRecipe(i) for i in range(30)]
 
 
+def create_random_recipe(author_id):
+    """Creates a recipe using FakeRecipe data and inserts it into the database."""
+
+    fake = FakeRecipe(0)   # ID is not needed, DB assigns its own
+
+    # --- Create Recipe row ---
+    r = Recipe()
+    r.name = fake.name
+    r.servings = fake.serving
+    r.description = fake.description
+    r.prepTime = fake.prep_time
+    r.prepUnit = fake.prep_unit
+    r.cookTime = fake.cook_time
+    r.cookUnit = fake.cook_unit
+    r.meal = fake.meal
+    r.instructions = "\n".join(fake.instructions)   # convert list → string
+    r.image = fake.image
+    r.author_id = author_id
+
+    db.session.add(r)
+    db.session.flush()   # Makes r.id available
+
+    # --- Add ingredients ---
+    for ingL in fake.ingredients:
+        ing = Ingredient()
+        ing.name = ingL[2]
+        db.session.add(ing)
+        db.session.flush()   # get ingredient ID
+
+        entry = IngredientEntry()
+        entry.recipe_id=r.id
+        entry.amount=ingL[0]
+        entry.unit=ingL[1]
+        entry.ingredient_id=ing.id
+        db.session.add(entry)
+
+    # --- Commit all ---
+    db.session.commit()
+
+    return r.id
+
+def getIndexRecipes(meal, count=4):
+    query = (
+        sa.select(Recipe)
+        .where(Recipe.meal == meal)
+        .order_by(sa.func.random())
+        .limit(count)
+    )
+    return db.session.scalars(query).all()
+
+
 @app.route('/')
 def index():
-    query = sa.select(Recipe)
-    d = db.session.scalars(query).all()
-    breakfast = []
-    lunch = []
-    dinner = []
-    snacks = []
-    desserts = []
+    # for i in range(30):
+    #     create_random_recipe(1)
+    breakfast = getIndexRecipes('Breakfast')
+    lunch = getIndexRecipes('Lunch')
+    dinner = getIndexRecipes('Dinner')
+    snacks = getIndexRecipes('Snacks')
+    desserts = getIndexRecipes('Desserts')
     # Need to add a querry for Rating to as to have a way to select which recipes should show up
     # Each meal should have 11 elements then a button to see more
+    
     r = []
     for rec in recipes:
         r += [{
@@ -291,8 +345,8 @@ def peppers():
 
 @app.route('/recipe/<id>')
 def recipe_ex(id=0):
-    recipe = []
-    recipe = recipes[int(id)]
+    stmt = sa.select(Recipe).where(Recipe.id == id)
+    recipe = db.session.scalars(stmt).first()
     return render_template('recipe-template.html', r=recipe)
 
 
@@ -304,25 +358,32 @@ def new_recipe():
     elif request.method == 'POST':
         r = Recipe()
         r.name = request.form['name']
-        r.servings = request.form['serving']
+        r.servings = request.form['servings']
+        r.description = request.form['description']
         r.prepTime = request.form['prep-time']
         r.prepUnit = request.form['prep-units']
         r.cookTime = request.form['cook-time']
         r.cookUnit = request.form['cook-units']
-        r.instructions = request.form['instruction']
+        r.instructions = request.form['instructions']
+        r.meal = request.form['meal-type']
         r.author_id = current_user.id
-        
-        # for i in ingredients
-        ing = Ingredient()
-        ing.name = request.form['food']
-
-        ingEntry = IngredientEntry()
-        ingEntry.amount = request.form['amount']
-        ingEntry.unit = request.form['measurement']
-        # foreign key to ingredient_id
-        # foreign key to recipe_id
-
         db.session.add(r)
+
+        for item in request.form:
+            if item[0:4] == 'food' and request.form[item] != '':
+                num = item[4::]
+                ing = Ingredient()
+                ing.name = request.form[item]
+                db.session.add(ing)
+                db.session.flush()
+                ingEntry = IngredientEntry()
+                if request.form['amount' + num] != '':
+                    ingEntry.amount = request.form['amount' + num]
+                ingEntry.unit = request.form['measurement' + num]
+                ingEntry.recipe_id = r.id
+                ingEntry.ingredient_id = ing.id
+                db.session.add(ingEntry)
+
         db.session.commit()
         return redirect(url_for('cookbook')) 
 

@@ -29,15 +29,14 @@
             <span class="fa fa-star"></span>
             <span class="fa fa-star-half-full"></span>    
         </div>
-        {% for r in recipes[1:4] %}
+        {% for b in breakfast[1:4] %}
             <div class="item"> 
-                <!-- <a href="{{ r['href'] }}"><img title="{{r['name']}}" src= "{{ img }}/{{ r['src'] }}" /></a> -->
-                <a href="{{ url_for('recipe_ex', id=r.id) }}"><img class="img" title="{{r['name']}}" src= "{{ r['src'] }}" /></a>
+                <a href="{{ url_for('recipe_ex', id=b.id) }}"><img class="img" title="{{b.name}}" /></a> 
+                <!-- src= "{{ b['src'] }}"-->
                 <hr class="item" /> 
-                <a href="{{ url_for('recipe_ex', id=r.id) }}" class="none space"><b class="dots"> {{r['name']}} </b></a>
+                <a href="{{ url_for('recipe_ex', id=b.id) }}" class="none space"><b class="dots"> {{b.name}} </b></a>
                 <br>
                 <span class="space"></span>
-                {{ r['stars'] | safe }}
             </div>
         {% endfor %}
     </div>

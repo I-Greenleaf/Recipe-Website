@@ -36,7 +36,7 @@
             <input type="text" name="name" placeholder="Enter recipe name" aria-label="Text">
             <div role="group">
                 <h6>Servings: </h6>
-                <input type="number" name="serving" placeholder="Enter number of servings" aria-label="Number">
+                <input type="number" name="servings" placeholder="Enter number of servings" aria-label="Number">
             </div>
             <div role="group">
                 <h6>Prep Time: </h6>
@@ -56,36 +56,132 @@
                     <option>Hours</option>
                 </select>
             </div>
+            <select name="meal-type" aria-label="Select your favorite cuisine...">
+                <option selected disabled value="">
+                    Select a type of food...
+                </option>
+                <option>Breakfast</option>
+                <option>Lunch</option>
+                <option>Dinner</option>
+                <option>Snacks</option>
+                <option>Dessert</option>
+            </select>
             <textarea name="description" placeholder="Describe your recipe..." aria-label="Recipe Description"></textarea>
-            <button class="outline secondary">Add image</button>
+            <div role="group">
+                <h6>Add image: </h6>
+                <input
+                    name="image"
+                    type="file"
+                    id="docpicker"
+                    accept=".doc,.docx,.xml,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                />
+            </div>
         </article>
 
         <article>
             <h3>Ingredients</h3>
             <div role="group">
-                <input type="number" name="amount" placeholder="Enter numeric amount" aria-label="Number">
+                <input type="number" name="amount0" placeholder="Enter numeric amount" aria-label="Number">
                 <!-- Potentially make measurement searchable dropdown menu -->
-                <input type="text" name="measurement" placeholder="Enter measurement type" aria-label="Text">
-                <input type="text" name="food" placeholder="Enter ingredient name" aria-label="Text">
+                <input type="text" name="measurement0" placeholder="Enter measurement type" aria-label="Text">
+                <input type="text" name="food0" placeholder="Enter ingredient name" aria-label="Text">
             </div>
-            <button class="outline secondary">Add another ingredient</button>
+            <div role="group">
+                <input type="number" name="amount1"     placeholder="Enter numeric amount" aria-label="Number">
+                <input type="text" name="measurement1"  placeholder="Enter measurement type" aria-label="Text">
+                <input type="text" name="food1"         placeholder="Enter ingredient name" aria-label="Text">
+            </div>
+            <div role="group">
+                <input type="number" name="amount2"     placeholder="Enter numeric amount" aria-label="Number">
+                <input type="text" name="measurement2"  placeholder="Enter measurement type" aria-label="Text">
+                <input type="text" name="food2"         placeholder="Enter ingredient name" aria-label="Text">
+            </div>
+            <div role="group">
+                <input type="number" name="amount3"     placeholder="Enter numeric amount" aria-label="Number">
+                <input type="text" name="measurement3"  placeholder="Enter measurement type" aria-label="Text">
+                <input type="text" name="food3"         placeholder="Enter ingredient name" aria-label="Text">
+            </div>
+            <div role="group">
+                <input type="number" name="amount4"     placeholder="Enter numeric amount" aria-label="Number">
+                <input type="text" name="measurement4"  placeholder="Enter measurement type" aria-label="Text">
+                <input type="text" name="food4"         placeholder="Enter ingredient name" aria-label="Text">
+            </div>
+            <div role="group">
+                <input type="number" name="amount5"     placeholder="Enter numeric amount" aria-label="Number">
+                <input type="text" name="measurement5"  placeholder="Enter measurement type" aria-label="Text">
+                <input type="text" name="food5"         placeholder="Enter ingredient name" aria-label="Text">
+            </div>
+            <div role="group">
+                <input type="number" name="amount6"     placeholder="Enter numeric amount" aria-label="Number">
+                <input type="text" name="measurement6"  placeholder="Enter measurement type" aria-label="Text">
+                <input type="text" name="food6"         placeholder="Enter ingredient name" aria-label="Text">
+            </div>
+            <div role="group">
+                <input type="number" name="amount7"     placeholder="Enter numeric amount" aria-label="Number">
+                <input type="text" name="measurement7"  placeholder="Enter measurement type" aria-label="Text">
+                <input type="text" name="food7"         placeholder="Enter ingredient name" aria-label="Text">
+            </div>
+            <div role="group">
+                <input type="number" name="amount8"     placeholder="Enter numeric amount" aria-label="Number">
+                <input type="text" name="measurement8"  placeholder="Enter measurement type" aria-label="Text">
+                <input type="text" name="food8"         placeholder="Enter ingredient name" aria-label="Text">
+            </div>
+            <div role="group">
+                <input type="number" name="amount9"     placeholder="Enter numeric amount" aria-label="Number">
+                <input type="text" name="measurement9"  placeholder="Enter measurement type" aria-label="Text">
+                <input type="text" name="food9"         placeholder="Enter ingredient name" aria-label="Text">
+            </div>
+            <div role="group">
+                <input type="number" name="amount1"     placeholder="Enter numeric amount" aria-label="Number">
+                <input type="text" name="measurement1"  placeholder="Enter measurement type" aria-label="Text">
+                <input type="text" name="food1"         placeholder="Enter ingredient name" aria-label="Text">
+            </div>
+            <div role="group">
+                <input type="number" name="amount10"     placeholder="Enter numeric amount" aria-label="Number">
+                <input type="text" name="measurement10"  placeholder="Enter measurement type" aria-label="Text">
+                <input type="text" name="food10"         placeholder="Enter ingredient name" aria-label="Text">
+            </div>
+            <div role="group">
+                <input type="number" name="amount11"     placeholder="Enter numeric amount" aria-label="Number">
+                <input type="text" name="measurement11"  placeholder="Enter measurement type" aria-label="Text">
+                <input type="text" name="food11"         placeholder="Enter ingredient name" aria-label="Text">
+            </div>
+            <div role="group">
+                <input type="number" name="amount12"     placeholder="Enter numeric amount" aria-label="Number">
+                <input type="text" name="measurement12"  placeholder="Enter measurement type" aria-label="Text">
+                <input type="text" name="food12"         placeholder="Enter ingredient name" aria-label="Text">
+            </div>
+            <div role="group">
+                <input type="number" name="amount13"     placeholder="Enter numeric amount" aria-label="Number">
+                <input type="text" name="measurement13"  placeholder="Enter measurement type" aria-label="Text">
+                <input type="text" name="food13"         placeholder="Enter ingredient name" aria-label="Text">
+            </div>
+            <div role="group">
+                <input type="number" name="amount14"     placeholder="Enter numeric amount" aria-label="Number">
+                <input type="text" name="measurement14"  placeholder="Enter measurement type" aria-label="Text">
+                <input type="text" name="food14"         placeholder="Enter ingredient name" aria-label="Text">
+            </div>
+            <div role="group">
+                <input type="number" name="amount15"     placeholder="Enter numeric amount" aria-label="Number">
+                <input type="text" name="measurement15"  placeholder="Enter measurement type" aria-label="Text">
+                <input type="text" name="food15"         placeholder="Enter ingredient name" aria-label="Text">
+            </div>
+            <!-- <button class="outline secondary">Add another ingredient</button> -->
         </article>
 
         <article>
             <h3>Instructions</h3>
-            <!-- <div role="group"> -->
-                <input type="text" name="instruction" placeholder="Enter instruction" aria-label="Text"> 
-            <!-- </div> -->
-            <button class="outline secondary">Add new instruction</button>
+            <textarea type="text" name="instructions" placeholder="Enter instructions" aria-label="Text"></textarea>
+            <!-- <button class="outline secondary">Add new instruction</button> -->
         </article>
 
-        <article>
+        <!-- <article>
             <h3>Subsitutes</h3>
-            <!-- <div role="group">
+            <div role="group">
                 <input type="text" name="instruction" placeholder="Enter instruction" aria-label="Text"> 
             </div>
-            <button class="outline secondary">Add new instruction</button> -->
-        </article>
+            <button class="outline secondary">Add new instruction</button>
+        </article> -->
         <input type="submit" value="Create Recipe">
     </form>
 {% endblock %}
