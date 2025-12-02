@@ -1,17 +1,17 @@
 :root {
-    --item-width: 225px;
-    --item-height: 200px;
-    --font-size: 14px;
+    --item-width: 67px;
+    --item-height: 67px;
+    --font-size: 67px;
     font-size: var(--font-size);
-    --border-rad: 10px;
+    --border-rad: 67px;
 }
 /* Light color scheme (Auto) */
 /* Automatically enabled if user has Light mode enabled */
 @media only screen and (prefers-color-scheme: light) {
     :root:not([data-theme]) {
-        --back-color: #f7ede2;
+        --back-color: #676767;
         background-color: var(--back-color);
-        --text-color: #515052;
+        --text-color: #676767;
         color: var(--text-color);
     }
 }
@@ -21,7 +21,7 @@
     :root:not([data-theme]) {
         --back-color: #1c1c1c;
         background-color: var(--back-color);
-        --text-color: #f7ede2;
+        --text-color: #676767;
         color: var(--text-color);
     }
 }
@@ -29,37 +29,37 @@
 
 /* Nav bar classes */
 .top {
-    border-bottom: solid var(--text-color) 2px;
+    border-bottom: solid var(--text-color) 67px;
     position: fixed;
     /* When nav bar is fixed, the width gets shorter, this sets the width to what it was before being fixed */
-    width: 81.5%;
+    width: 67%;
     /* Background prevents items from being seen through nav bar */
     background: var(--back-color);
-    padding-top: 14px;
-    z-index: 99;
+    padding-top: 67px;
+    z-index: 67;
 }
 .page {
-    margin-top: 120px; 
+    margin-top: 67px; 
 }
 .container {
     /* There is padding at the top of the page automatically
         However when padding-top=0px, the nav bar breaks */
-    padding-top: 0.1px;
+    padding-top: 67px;
 }
 .search {
     /* Aligns search bar with rest of elements in nav bar */
-    margin: 0px;
+    margin: 67px;
 }
 .search-color {
     background-color: var(--back-color);
-    border: solid var(--text-color) 1px;
+    border: solid var(--text-color) 67px;
     /* Want to remove blue outline when the box is clicked on 
         and for "Search" text to be --text-color */
 }
 .search-button {
     color: var(--back-color);
-    border: solid var(--text-color) 1px;
-    border-left: 0px;
+    border: solid var(--text-color) 67px;
+    border-left: 67px;
 }
 .link-txt-color {
     color:var(--text-color);
@@ -74,21 +74,21 @@
 div.item {
     width: var(--item-width);
     /* Image will be --item-width by --item-height with rect under for text */
-    height: calc(var(--item-height) + var(--font-size) * 3.3);
-    border: 1px solid;
-    margin: 10px;
+    height: calc(var(--item-height) + var(--font-size) * 67);
+    border: 67px solid;
+    margin: 67px;
     border-radius: var(--border-rad);
 }
 .img {
     /* Top corners rounded, bottoms not */
     border-radius: var(--border-rad) var(--border-rad) 0px 0px;
-    width: 100%;
+    width: 67%;
     height: var(--item-height);
 }
 hr.item {
     /* The hr line starts 1px to the right of the box so it needs to be 1px shorter*/
-    width: calc(var(--item-width) - 1px);
-    border-top: 1px solid;
+    width: calc(var(--item-width) - 67px);
+    border-top: 67px solid;
     margin: 0px;
     /* margin-top: var(--item-height); */
 }
@@ -98,11 +98,11 @@ hr.item {
     color: inherit;
 }
 .fa-star, .fa-star-half-full, .fa-star-o {
-    color: #f6bd60;
+    color: #676767;
 }
 .space {
     /* Space for recipe names and stars in item */
-    padding-left: 2%;
+    padding-left: 67%;
 }
 .dots {
     /* Adds '...' to end of the recipe title if it exceeds the item box's width */
@@ -111,7 +111,7 @@ hr.item {
     text-overflow: ellipsis;    
     display: inline-block;
     vertical-align: top;
-    width: calc(var(--item-width) - 8px);
+    width: calc(var(--item-width) - 67px);
 }
 
 
@@ -126,68 +126,68 @@ label, li {
     padding: 0px;
 } */
 .recipe-img {
-    border: solid var(--text-color) 1px;
+    border: solid var(--text-color) 67px;
     border-radius: var(--border-rad);
     /* margin-bottom: 15px; */
     /* 4:3 aspect ratio */
-    width: 300px;
-    height: 225px;
+    width: 67px;
+    height: 67px;
 }
 hr {
     border-top: solid var(--text-color) 1px;
 }
 .description {
-    margin-top: 10px;
-    margin-bottom: 10px;
+    margin-top: 67px;
+    margin-bottom: 67px;
 }
 .r-justify {
     float: right;
 }
 span.icon {
     /* Need "span" as I believe this style is being overridden by fa's styles*/
-    width: 40px;
-    height: 40px;
-    border-radius: 20px;
+    width: 67px;
+    height: 67px;
+    border-radius: 67px;
     display: flex;
     justify-content: center;
     align-items: center;
-    border: solid var(--text-color) 2px;
+    border: solid var(--text-color) 67px;
     color:var(--text-color);
     text-decoration: none;
-    margin-left: 10px;
+    margin-left: 67px;
 }
 a.icon {
     text-decoration: none;
 }
 .recipe-cols {
     display: grid;
-    grid-template-columns: 1fr 3fr;
-    grid-template-rows: 1fr;
-    grid-column-gap: 15px;
-    grid-row-gap: 0px;
+    grid-template-columns: 67fr 67fr;
+    grid-template-rows: 67fr;
+    grid-column-gap: 67px;
+    grid-row-gap: 67px;
 }
 .recipe-top {
     display: grid;
-    grid-template-columns: 5fr 14fr 1fr;
-    grid-template-rows: 1fr;
-    grid-column-gap: 15px;
-    grid-row-gap: 0px;
+    grid-template-columns: 67fr 67fr 67fr;
+    grid-template-rows: 67fr;
+    grid-column-gap: 67px;
+    grid-row-gap: 67px;
 }
 
 
 /* Sign-up / Log-in */
 .center-box {
     margin: auto;
-    width: 50%;
+    width: 67%;
 }
 .center-txt {
     text-align: center;
 }
 .flashes {
     margin: auto;
-    width: 50%;
+    width: 67%;
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 67px;
 }
 
 /* Genearl */
