@@ -6,20 +6,21 @@
         <img class="recipe-img" title="Image of Food" src="{{ img }}/{{ r.image }}"/>
         <div>
             <h1>{{ r.name }}  </h1>
-            <h4> By: {{ r.author_id.username }} </h4>
-            <h4> 
+            <h4> By: {{ author }} </h4>
+            <article>{{ r.description }}</article>
+            <!-- <h4> 
                 Rating: {{ r.rating_disp }} 
                 {{ r.stars_html | safe }}
-                ({{ r.reviews }}) | 
+                ({{ r.reviews }}) |  -->
                 <!-- If logged in, this is an option -->
-                <a href="">Rate Recipe</a> 
-            </h4>
-            <article>
+                <!-- <a href="">Rate Recipe</a>  -->
+            <!-- </h4> -->
+            <!-- <article>
                 <span class="fa fa-exclamation-triangle" aria-hidden="true"></span>
                 <b>Allergens:</b>
                 This recipe may contain: <b>__?__</b>. Read recipe carefully and make subsitutes as necessary.
                 <!-- https://www.fda.gov/food/nutrition-food-labeling-and-critical-foods/food-allergies -->
-            </article>
+            <!-- </article> -->
         </div>
         <!-- Next two lines switch depending on if owner of recipe or not -->
         <h2><a class="icon" href=""><span class="fa fa-pencil icon " aria-hidden="false"></span></a></h2>
@@ -27,12 +28,12 @@
         <!-- Recipe gets saved to cookbook when clicked on, notes appears, and  fa-bookmark-o->fa-bookmark -->
     </div>
 
-    <article class="description">
+    <!-- <article class="description">
         {{ r.description }}
     </article>
-    
+     -->
     <article>
-        <fieldset>
+        <!-- <fieldset>
             <legend class="txt-color"> Servings: {{ r.serving }} </legend>
             <input type="radio" id="0.5x" name="servings" />
             <label htmlFor="0.5x">0.5x</label>
@@ -46,26 +47,26 @@
             <label htmlFor="3.0x">3.0x</label>
             <input type="radio" id="4.0x" name="servings" />
             <label htmlFor="4.0x">4.0x</label>
-        </fieldset>
-        <hr/>
+        </fieldset> -->
+        <!-- <hr/> -->
         <!-- Add proper spacing -->
-        Prep Time: {{ r.prep_time }} {{ r.prep_unit }} &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
-        Cook Time: {{ r.cook_time }} {{ r.cook_unit }} 
+        Prep Time: {{ r.prepTime }} {{ r.prepUnit }} &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+        Cook Time: {{ r.cookTime }} {{ r.cookUnit }} 
     </article>
 
     <div class="recipe-cols">
         <article>
             <h3> Ingredients </h3>
             <ul>
-                {% for i in r.ingredients %}
-                    <li>{{ i | join(' ') }}</li>
+                {% for i in ingredients %}
+                    <li>{{ i }}</li>
                 {% endfor %}
             </ul>
         </article>
         <article>
             <h3> Instructions </h3>
             <ol>
-                {% for i in r.instructions %}
+                {% for i in instructions %}
                     <li>{{ i }}</li>
                 {% endfor %}
             </ol>

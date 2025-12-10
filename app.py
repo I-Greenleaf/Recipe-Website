@@ -351,7 +351,27 @@ def peppers():
 def recipe_ex(id=0):
     stmt = sa.select(Recipe).where(Recipe.id == id)
     recipe = db.session.scalars(stmt).first()
-    return render_template('recipe-template.html', r=recipe)
+
+    author = User.query.get(recipe.author_id).username
+
+    stmt = sa.select(IngredientEntry).where(IngredientEntry.recipe_id == id)
+    entries = db.session.scalars(stmt).all()
+    ingredients = []
+    for entry in entries:
+        ing = ''
+        ing += Ingredient.query.get(entry.ingredient_id).name
+        # Converts 1.0 to 1 but leaves 5.5 as 5.5
+        if entry.amount.is_integer():
+            amount = str(int(entry.amount))
+        else:
+            amount = str(entry.amount)
+        ing += ' ' + amount + ' ' + entry.unit
+        ingredients.append(ing)
+
+    instructions=recipe.instructions.splitlines()
+    print(recipe.instructions)
+
+    return render_template('recipe-template.html', r=recipe, author=author, ingredients=ingredients, instructions=instructions)
 
 
 @app.route('/new-recipe', methods=['GET', 'POST'])
