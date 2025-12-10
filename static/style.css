@@ -82,8 +82,9 @@ div.item {
 .img {
     /* Top corners rounded, bottoms not */
     border-radius: var(--border-rad) var(--border-rad) 0px 0px;
-    width: 100%;
+    width: var(--item-width);
     height: var(--item-height);
+    overflow: hidden;
 }
 hr.item {
     /* The hr line starts 1px to the right of the box so it needs to be 1px shorter*/

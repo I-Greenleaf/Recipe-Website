@@ -3,10 +3,10 @@
 <!-- Getting recipe from id -->
 {% block body %}
     <div class="recipe-top">
-        <img class="recipe-img" title="peppers" src="{{ img }}/peppers.jpg"/>
+        <img class="recipe-img" title="Image of Food" src="{{ img }}/{{ r.image }}"/>
         <div>
             <h1>{{ r.name }}  </h1>
-            <h4> By: {{ r.author }} </h4>
+            <h4> By: {{ r.author_id.username }} </h4>
             <h4> 
                 Rating: {{ r.rating_disp }} 
                 {{ r.stars_html | safe }}

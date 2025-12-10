@@ -14,12 +14,12 @@
 <article>
     <h3>
         Breakfast
-        <a href=""><span class="fa fa-arrow-right r-justify icon" aria-hidden="false"></span></a>
-        <a href=""><span class="fa fa-arrow-left r-justify icon" aria-hidden="false"></span></a>
+        <!-- <a href=""><span class="fa fa-arrow-right r-justify icon" aria-hidden="false"></span></a>
+        <a href=""><span class="fa fa-arrow-left r-justify icon" aria-hidden="false"></span></a> -->
     </h3>
     <div class="grid">
         <div class="item">   
-            <a href="/peppers"><img class="img" title="cat" src="{{ img }}/peppers2.jpg"/></a>
+            <a href="/peppers"><img class="img" title="cat" src="/static/OIP-219248849.jpg"/></a>
             <hr class="item" /> 
             <a href="/peppers" class="none space"><b> Cream Cheese Stuffed Peppers </b></a>
             <br>
@@ -31,8 +31,7 @@
         </div>
         {% for b in breakfast[1:4] %}
             <div class="item"> 
-                <a href="{{ url_for('recipe_ex', id=b.id) }}"><img class="img" title="{{b.name}}" /></a> 
-                <!-- src= "{{ b['src'] }}"-->
+                <a href="{{ url_for('recipe_ex', id=b.id) }}"><img class="img" title="{{b.name}}" src= "{{ img }}\{{ b.image }}"/></a> 
                 <hr class="item" /> 
                 <a href="{{ url_for('recipe_ex', id=b.id) }}" class="none space"><b class="dots"> {{b.name}} </b></a>
                 <br>
@@ -45,8 +44,8 @@
 <article>
     <h3>
         Lunch
-        <a href=""><span class="fa fa-arrow-right r-justify icon" aria-hidden="false"></span></a>
-        <a href=""><span class="fa fa-arrow-left r-justify icon" aria-hidden="false"></span></a>
+        <!-- <a href=""><span class="fa fa-arrow-right r-justify icon" aria-hidden="false"></span></a>
+        <a href=""><span class="fa fa-arrow-left r-justify icon" aria-hidden="false"></span></a> -->
     </h3>
     <div class="grid">
         {% for r in recipes[5:9] %}
@@ -66,8 +65,8 @@
 <article>
     <h3>
         Dinner
-        <a href=""><span class="fa fa-arrow-right r-justify icon" aria-hidden="false"></span></a>
-        <a href=""><span class="fa fa-arrow-left r-justify icon" aria-hidden="false"></span></a>
+        <!-- <a href=""><span class="fa fa-arrow-right r-justify icon" aria-hidden="false"></span></a>
+        <a href=""><span class="fa fa-arrow-left r-justify icon" aria-hidden="false"></span></a> -->
     </h3>
     <div class="grid">
         {% for r in recipes[10:14] %}
@@ -87,8 +86,8 @@
 <article>
     <h3>
         Desserts
-        <a href=""><span class="fa fa-arrow-right r-justify icon" aria-hidden="false"></span></a>
-        <a href=""><span class="fa fa-arrow-left r-justify icon" aria-hidden="false"></span></a>
+        <!-- <a href=""><span class="fa fa-arrow-right r-justify icon" aria-hidden="false"></span></a>
+        <a href=""><span class="fa fa-arrow-left r-justify icon" aria-hidden="false"></span></a> -->
     </h3>
     <div class="grid">
         {% for r in recipes[15:19] %}
@@ -108,8 +107,8 @@
 <article>
     <h3>
         Snacks
-        <a href=""><span class="fa fa-arrow-right r-justify icon" aria-hidden="false"></span></a>
-        <a href=""><span class="fa fa-arrow-left r-justify icon" aria-hidden="false"></span></a>
+        <!-- <a href=""><span class="fa fa-arrow-right r-justify icon" aria-hidden="false"></span></a>
+        <a href=""><span class="fa fa-arrow-left r-justify icon" aria-hidden="false"></span></a> -->
     </h3>
     <div class="grid">
         {% for r in recipes[20:24] %}

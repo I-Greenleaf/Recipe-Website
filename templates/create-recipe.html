@@ -30,10 +30,10 @@
 
 {% block body %}
     <h1>Create a New Recipe</h1>
-    <form action="{{url_for('new_recipe')}}" method="POST">
+    <form action="{{url_for('new_recipe')}}" method="POST" enctype=multipart/form-data>
         <article>
             <h3>Information</h3>
-            <input type="text" name="name" placeholder="Enter recipe name" aria-label="Text">
+            <input type="text" name="name" placeholder="Enter recipe name" aria-label="Text" required>
             <div role="group">
                 <h6>Servings: </h6>
                 <input type="number" name="servings" placeholder="Enter number of servings" aria-label="Number">
@@ -41,7 +41,7 @@
             <div role="group">
                 <h6>Prep Time: </h6>
                 <input type="number" name="prep-time" placeholder="Enter preperation time" aria-label="Number">
-                <select name="prep-units" aria-label="Select">
+                <select name="prep-units" aria-label="Select" required>
                     <option selected disabled value="">Select time units</option>
                     <option>Minutes</option>
                     <option>Hours</option>
@@ -50,13 +50,13 @@
             <div role="group">
                 <h6>Cook Time: </h6>
                 <input type="number" name="cook-time" placeholder="Enter cooking time" aria-label="Number">
-                <select name="cook-units" aria-label="Select">
+                <select name="cook-units" aria-label="Select" required>
                     <option selected disabled value="">Select time units</option>
                     <option>Minutes</option>
                     <option>Hours</option>
                 </select>
             </div>
-            <select name="meal-type" aria-label="Select your favorite cuisine...">
+            <select name="meal-type" aria-label="Select your favorite cuisine..." required>
                 <option selected disabled value="">
                     Select a type of food...
                 </option>
@@ -72,8 +72,8 @@
                 <input
                     name="image"
                     type="file"
-                    id="docpicker"
-                    accept=".doc,.docx,.xml,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                    id="image"
+                    accept=".jpg,.jpeg,.png,.heic,.svg,.webp"
                 />
             </div>
         </article>

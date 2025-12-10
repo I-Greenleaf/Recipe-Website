@@ -18,6 +18,7 @@ from flask_migrate import Migrate
 import sqlalchemy.orm as so
 import sqlalchemy as sa
 from werkzeug.security import generate_password_hash, check_password_hash
+from werkzeug.utils import secure_filename
 from flask_login import LoginManager, UserMixin, current_user, login_user, logout_user, login_required
 import re
 from faker import Faker
@@ -33,6 +34,9 @@ basedir=os.path.abspath(os.path.dirname(__file__)) # Computer finds directory of
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///" + os.path.join(basedir, "app.db") # app.db defines database filename
 db = SQLAlchemy(app) # db object represents the database
 migrate = Migrate(app, db)
+
+UPLOAD_FOLDER = "static/recipeImages"
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 class User(UserMixin, db.Model):
     id:so.Mapped[int] = so.mapped_column(primary_key=True)
@@ -67,7 +71,7 @@ class Recipe(db.Model):
     # Private = 0
     # Link only = 1
     # Public = 2
-    image:so.Mapped[str] = so.mapped_column(default='Image string')
+    image:so.Mapped[str] = so.mapped_column(default='Default image string', unique=True)
     author_id:so.Mapped[int] = so.mapped_column(sa.ForeignKey(User.id))
     def __init__(self):
         pass
@@ -232,7 +236,7 @@ class FakeRecipe:
 recipes = [FakeRecipe(i) for i in range(30)]
 
 
-def create_random_recipe(author_id):
+def create_random_recipe(author_id=0):
     """Creates a recipe using FakeRecipe data and inserts it into the database."""
 
     fake = FakeRecipe(0)   # ID is not needed, DB assigns its own
@@ -248,7 +252,7 @@ def create_random_recipe(author_id):
     r.cookUnit = fake.cook_unit
     r.meal = fake.meal
     r.instructions = "\n".join(fake.instructions)   # convert list → string
-    r.image = fake.image
+    r.image = "food.jpg"
     r.author_id = author_id
 
     db.session.add(r)
@@ -294,7 +298,7 @@ def index():
     desserts = getIndexRecipes('Desserts')
     # Need to add a querry for Rating to as to have a way to select which recipes should show up
     # Each meal should have 11 elements then a button to see more
-    
+ 
     r = []
     for rec in recipes:
         r += [{
@@ -368,6 +372,20 @@ def new_recipe():
         r.meal = request.form['meal-type']
         r.author_id = current_user.id
         db.session.add(r)
+        
+        file = request.files['image']
+        filename = secure_filename(file.filename)
+
+        imageNameAlreadyUsed = db.session.query(
+            db.session.query(Recipe)
+            .filter_by(image="filename")
+            .exists()
+        ).scalar()
+        if imageNameAlreadyUsed:
+            filename += str(r.id)
+
+        filepath = file.save(os.path.join(app.config["UPLOAD_FOLDER"], filename))
+        file.save(filepath)
 
         for item in request.form:
             if item[0:4] == 'food' and request.form[item] != '':
@@ -383,6 +401,7 @@ def new_recipe():
                 ingEntry.recipe_id = r.id
                 ingEntry.ingredient_id = ing.id
                 db.session.add(ingEntry)
+
 
         db.session.commit()
         return redirect(url_for('cookbook')) 
