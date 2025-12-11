@@ -304,10 +304,24 @@ def index():
 @app.route('/cookbook')
 @login_required
 def cookbook():
-    query = sa.select(CookbookEntry)
-    d = db.session.scalars(query).all()
+    # Gets all the recipes the user is the author of
+    query = sa.select(Recipe).where(Recipe.author_id==current_user.id)
+    entries = db.session.scalars(query).all()
+
+    recipes = []
+    for entry in entries:
+        recipes.append(Recipe.query.get(entry.id))
+
+    # Gets all the recipes the user has saved
+    query = sa.select(CookbookEntry).where(CookbookEntry.user_id==current_user.id)
+    entries = db.session.scalars(query).all()
+
+    for entry in entries:
+        recipes.append(Recipe.query.get(entry.recipe_id))
+    print(entries)
+
+    print(recipes)
     # return all Recipes that are linked to the user in the entry
-    r = []
     # r = [ 
     #     {"src": "peppers2.jpg",
     #     "href": "/peppers",
@@ -318,16 +332,16 @@ def cookbook():
     #             "<span class='fa fa-star'></span> "
     #             "<span class='fa fa-star-half-full'></span> "}
     #     ]
-    for rec in recipes:
-        r += [{
-            "src": rec.image,
-            "href": "",
-            "name": rec.name,
-            "stars": rec.stars_html,
-            "id": rec.id
-            }]
+    # for rec in recipes:
+    #     r += [{
+    #         "src": rec.image,
+    #         "href": "",
+    #         "name": rec.name,
+    #         "stars": rec.stars_html,
+    #         "id": rec.id
+    #         }]
 
-    return render_template('cookbook.html', recipes=r)
+    return render_template('cookbook.html', recipes=recipes)
 
 @app.route('/search')
 def search():
