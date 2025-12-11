@@ -36,6 +36,7 @@ migrate = Migrate(app, db)
 UPLOAD_FOLDER = "static/recipeImages"
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
+
 class User(UserMixin, db.Model):
     id:so.Mapped[int] = so.mapped_column(primary_key=True)
     username:so.Mapped[str] = so.mapped_column(default="Default username", unique=True)
@@ -90,6 +91,14 @@ class IngredientEntry(db.Model):
     def __init__(self):
         pass
 
+
+class CookbookEntry(db.Model):
+    id:so.Mapped[int] = so.mapped_column(primary_key=True)
+    user_id:so.Mapped[int] = so.mapped_column(sa.ForeignKey(User.id))
+    recipe_id:so.Mapped[int] = so.mapped_column(sa.ForeignKey(Recipe.id))
+    def __init__(self):
+        pass
+
 # class Substitute(db.Model):
 #     id:so.Mapped[int] = so.mapped_column(primary_key=True)
 #     amount:so.Mapped[float] = so.mapped_column(default=0.0)
@@ -100,28 +109,21 @@ class IngredientEntry(db.Model):
 #     def __init__(self):
 #         pass
 
-class CookbookEntry(db.Model):
-    id:so.Mapped[int] = so.mapped_column(primary_key=True)
-    user_id:so.Mapped[int] = so.mapped_column(sa.ForeignKey(User.id))
-    recipe_id:so.Mapped[int] = so.mapped_column(sa.ForeignKey(Recipe.id))
-    def __init__(self):
-        pass
+# class Rating(db.Model):
+#     id:so.Mapped[int] = so.mapped_column(primary_key=True)
+#     value:so.Mapped[float] = so.mapped_column(default=0.0)
+#     recipe_id:so.Mapped[int] = so.mapped_column(sa.ForeignKey(Recipe.id))
+#     user_id:so.Mapped[int] = so.mapped_column(sa.ForeignKey(User.id))
+#     def __init__(self):
+#         pass
 
-class Rating(db.Model):
-    id:so.Mapped[int] = so.mapped_column(primary_key=True)
-    value:so.Mapped[float] = so.mapped_column(default=0.0)
-    recipe_id:so.Mapped[int] = so.mapped_column(sa.ForeignKey(Recipe.id))
-    user_id:so.Mapped[int] = so.mapped_column(sa.ForeignKey(User.id))
-    def __init__(self):
-        pass
-
-class Note(db.Model):
-    id:so.Mapped[int] = so.mapped_column(primary_key=True)
-    text:so.Mapped[str] = so.mapped_column(default="")
-    recipe_id:so.Mapped[int] = so.mapped_column(sa.ForeignKey(Recipe.id))
-    user_id:so.Mapped[int] = so.mapped_column(sa.ForeignKey(User.id))
-    def __init__(self):
-        pass
+# class Note(db.Model):
+#     id:so.Mapped[int] = so.mapped_column(primary_key=True)
+#     text:so.Mapped[str] = so.mapped_column(default="")
+#     recipe_id:so.Mapped[int] = so.mapped_column(sa.ForeignKey(Recipe.id))
+#     user_id:so.Mapped[int] = so.mapped_column(sa.ForeignKey(User.id))
+#     def __init__(self):
+#         pass
 
 
 def create_random_recipe(author_id=0):
@@ -162,7 +164,6 @@ def create_random_recipe(author_id=0):
 
     # --- Commit all ---
     db.session.commit()
-
     return r.id
 
 def getIndexRecipes(meal, count=4):
@@ -206,28 +207,6 @@ def cookbook():
 
     for entry in entries:
         recipes.append(Recipe.query.get(entry.recipe_id))
-    print(entries)
-
-    print(recipes)
-    # return all Recipes that are linked to the user in the entry
-    # r = [ 
-    #     {"src": "peppers2.jpg",
-    #     "href": "/peppers",
-    #     "name": "Cream Cheese Stuffed Peppers",
-    #     "stars": "<span class='fa fa-star'></span> "
-    #             "<span class='fa fa-star'></span> "
-    #             "<span class='fa fa-star'></span> "
-    #             "<span class='fa fa-star'></span> "
-    #             "<span class='fa fa-star-half-full'></span> "}
-    #     ]
-    # for rec in recipes:
-    #     r += [{
-    #         "src": rec.image,
-    #         "href": "",
-    #         "name": rec.name,
-    #         "stars": rec.stars_html,
-    #         "id": rec.id
-    #         }]
 
     return render_template('cookbook.html', recipes=recipes)
 
