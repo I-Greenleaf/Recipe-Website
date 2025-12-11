@@ -18,24 +18,14 @@
         <a href=""><span class="fa fa-arrow-left r-justify icon" aria-hidden="false"></span></a> -->
     </h3>
     <div class="grid">
-        <div class="item">   
-            <a href="/peppers"><img class="img" title="cat" src="/static/OIP-219248849.jpg"/></a>
-            <hr class="item" /> 
-            <a href="/peppers" class="none space"><b> Cream Cheese Stuffed Peppers </b></a>
-            <br>
-            <span class="fa fa-star space"></span>
-            <span class="fa fa-star"></span>
-            <span class="fa fa-star"></span>
-            <span class="fa fa-star"></span>
-            <span class="fa fa-star-half-full"></span>    
-        </div>
-        {% for b in breakfast[1:4] %}
+        {% for b in breakfast[0:4] %}
             <div class="item"> 
                 <a href="{{ url_for('recipe_ex', id=b.id) }}"><img class="img" title="{{b.name}}" src= "{{ img }}\{{ b.image }}"/></a> 
                 <hr class="item" /> 
                 <a href="{{ url_for('recipe_ex', id=b.id) }}" class="none space"><b class="dots"> {{b.name}} </b></a>
                 <br>
-                <span class="space"></span>
+                <!-- <span class="space"></span> -->
+                <!-- <b>By: </b> {{b.name}} -->
             </div>
         {% endfor %}
     </div>
@@ -48,15 +38,13 @@
         <a href=""><span class="fa fa-arrow-left r-justify icon" aria-hidden="false"></span></a> -->
     </h3>
     <div class="grid">
-        {% for r in recipes[5:9] %}
+        {% for l in lunch[0:4] %}
             <div class="item"> 
-                <!-- <a href="{{ r['href'] }}"><img title="{{r['name']}}" src= "{{ img }}/{{ r['src'] }}" /></a> -->
-                <a href="{{ url_for('recipe_ex', id=r.id) }}"><img class="img" title="{{r['name']}}" src= "{{ r['src'] }}" /></a>
+                <a href="{{ url_for('recipe_ex', id=l.id) }}"><img class="img" title="{{l.name}}" src= "{{ img }}\{{ l.image }}"/></a> 
                 <hr class="item" /> 
-                <a href="{{ url_for('recipe_ex', id=r.id) }}" class="none space"><b class="dots"> {{r['name']}} </b></a>
+                <a href="{{ url_for('recipe_ex', id=l.id) }}" class="none space"><b class="dots"> {{l.name}} </b></a>
                 <br>
-                <span class="space"></span>
-                {{ r['stars'] | safe }}
+                <!-- <span class="space"></span> -->
             </div>
         {% endfor %}
     </div>
@@ -69,18 +57,15 @@
         <a href=""><span class="fa fa-arrow-left r-justify icon" aria-hidden="false"></span></a> -->
     </h3>
     <div class="grid">
-        {% for r in recipes[10:14] %}
+        {% for d in dinner[0:4] %}
             <div class="item"> 
-                <!-- <a href="{{ r['href'] }}"><img title="{{r['name']}}" src= "{{ img }}/{{ r['src'] }}" /></a> -->
-                <a href="{{ url_for('recipe_ex', id=r.id) }}"><img class="img" title="{{r['name']}}" src= "{{ r['src'] }}" /></a>
+                <a href="{{ url_for('recipe_ex', id=d.id) }}"><img class="img" title="{{d.name}}" src= "{{ img }}\{{ d.image }}"/></a> 
                 <hr class="item" /> 
-                <a href="{{ url_for('recipe_ex', id=r.id) }}" class="none space"><b class="dots"> {{r['name']}} </b></a>
+                <a href="{{ url_for('recipe_ex', id=d.id) }}" class="none space"><b class="dots"> {{d.name}} </b></a>
                 <br>
-                <span class="space"></span>
-                {{ r['stars'] | safe }}
+                <!-- <span class="space"></span> -->
             </div>
         {% endfor %}
-    </div>
 </article>
 
 <article>
@@ -90,15 +75,13 @@
         <a href=""><span class="fa fa-arrow-left r-justify icon" aria-hidden="false"></span></a> -->
     </h3>
     <div class="grid">
-        {% for r in recipes[15:19] %}
+        {% for d in desserts[0:4] %}
             <div class="item"> 
-                <!-- <a href="{{ r['href'] }}"><img title="{{r['name']}}" src= "{{ img }}/{{ r['src'] }}" /></a> -->
-                <a href="{{ url_for('recipe_ex', id=r.id) }}"><img class="img" title="{{r['name']}}" src= "{{ r['src'] }}" /></a>
+                <a href="{{ url_for('recipe_ex', id=d.id) }}"><img class="img" title="{{d.name}}" src= "{{ img }}\{{ d.image }}"/></a> 
                 <hr class="item" /> 
-                <a href="{{ url_for('recipe_ex', id=r.id) }}" class="none space"><b class="dots"> {{r['name']}} </b></a>
+                <a href="{{ url_for('recipe_ex', id=d.id) }}" class="none space"><b class="dots"> {{d.name}} </b></a>
                 <br>
-                <span class="space"></span>
-                {{ r['stars'] | safe }}
+                <!-- <span class="space"></span> -->
             </div>
         {% endfor %}
     </div>
@@ -111,15 +94,13 @@
         <a href=""><span class="fa fa-arrow-left r-justify icon" aria-hidden="false"></span></a> -->
     </h3>
     <div class="grid">
-        {% for r in recipes[20:24] %}
+        {% for s in snacks[0:4] %}
             <div class="item"> 
-                <!-- <a href="{{ r['href'] }}"><img title="{{r['name']}}" src= "{{ img }}/{{ r['src'] }}" /></a> -->
-                <a href="{{ url_for('recipe_ex', id=r.id) }}"><img class="img" title="{{r['name']}}" src= "{{ r['src'] }}" /></a>
+                <a href="{{ url_for('recipe_ex', id=s.id) }}"><img class="img" title="{{s.name}}" src= "{{ img }}\{{ s.image }}"/></a> 
                 <hr class="item" /> 
-                <a href="{{ url_for('recipe_ex', id=r.id) }}" class="none space"><b class="dots"> {{r['name']}} </b></a>
+                <a href="{{ url_for('recipe_ex', id=s.id) }}" class="none space"><b class="dots"> {{s.name}} </b></a>
                 <br>
-                <span class="space"></span>
-                {{ r['stars'] | safe }}
+                <!-- <span class="space"></span> -->
             </div>
         {% endfor %}
     </div>

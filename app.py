@@ -298,17 +298,8 @@ def index():
     desserts = getIndexRecipes('Desserts')
     # Need to add a querry for Rating to as to have a way to select which recipes should show up
     # Each meal should have 11 elements then a button to see more
- 
-    r = []
-    for rec in recipes:
-        r += [{
-            "src": rec.image,
-            "href": "",
-            "name": rec.name,
-            "stars": rec.stars_html,
-            "id": rec.id
-            }]
-    return render_template('index.html', recipes=r, breakfast=breakfast, lunch=lunch, dinner=dinner, snacks=snacks, desserts=desserts)
+
+    return render_template('index.html', breakfast=breakfast, lunch=lunch, dinner=dinner, snacks=snacks, desserts=desserts)
 
 @app.route('/cookbook')
 @login_required
