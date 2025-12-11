@@ -239,7 +239,7 @@ def recipe_ex(id=0):
             amount = str(int(entry.amount))
         else:
             amount = str(entry.amount)
-        ing += ' ' + amount + ' ' + entry.unit
+        ing = amount + ' ' + entry.unit + ' ' +  ing
         ingredients.append(ing)
 
     instructions=recipe.instructions.splitlines()
