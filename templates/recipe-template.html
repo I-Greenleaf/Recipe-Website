@@ -23,7 +23,9 @@
             <!-- </article> -->
         </div>
         <!-- Next two lines switch depending on if owner of recipe or not -->
-        <h2><a class="icon" href=""><span class="fa fa-pencil icon " aria-hidden="false"></span></a></h2>
+        {% if isAuthor %}
+        <!-- <h2><a class="icon" href=""><span class="fa fa-pencil icon " aria-hidden="false"></span></a></h2> -->
+        {% endif %}
         <!-- <h2><a class="icon" href=""><span class="fa fa-bookmark-o icon " aria-hidden="false"></span></a></h2> -->
         <!-- Recipe gets saved to cookbook when clicked on, notes appears, and  fa-bookmark-o->fa-bookmark -->
     </div>

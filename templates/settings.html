@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block body %}
+    <article>
+        <h3>Profile Settings:</h3>
+        <form action="{{url_for('settings')}}" method="POST">
+            Enter "<b>DELETE</b>" in order to delete your account.
+            <input type="text" name="delete" placeholder="" aria-label="Text" required>
+            <input type="submit" value="Delete Account">
+        </form>
+    </article>  
+{% endblock %}

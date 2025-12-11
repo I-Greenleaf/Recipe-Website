@@ -178,7 +178,7 @@ def getIndexRecipes(meal, count=4):
 
 @app.route('/')
 def index():
-    # for i in range(30):
+    # for i in range(5):
     #     create_random_recipe(1)
     breakfast = getIndexRecipes('Breakfast')
     lunch = getIndexRecipes('Lunch')
@@ -210,14 +210,16 @@ def cookbook():
 
     return render_template('cookbook.html', recipes=recipes)
 
-@app.route('/search')
-def search():
-    return render_template('search.html')
+# @app.route('/search')
+# def search():
+#     return render_template('search.html')
 
 # Display Recipes
-@app.route('/peppers')
-def peppers():
-    return render_template('peppers.html')
+
+
+# @app.route('/peppers')
+# def peppers():
+#     return render_template('peppers.html')
 
 @app.route('/recipe/<id>')
 def recipe_ex(id=0):
@@ -243,7 +245,8 @@ def recipe_ex(id=0):
     instructions=recipe.instructions.splitlines()
     print(recipe.instructions)
 
-    return render_template('recipe-template.html', r=recipe, author=author, ingredients=ingredients, instructions=instructions)
+    isAuthor = current_user == User.query.get(recipe.author_id)
+    return render_template('recipe-template.html', r=recipe, author=author, ingredients=ingredients, instructions=instructions, isAuthor=isAuthor)
 
 
 @app.route('/new-recipe', methods=['GET', 'POST'])
@@ -297,6 +300,10 @@ def new_recipe():
 
         db.session.commit()
         return redirect(url_for('cookbook')) 
+
+# @app.route('/new-edit_recipe/<id>', methods=['GET', 'POST'])
+# @login_required
+# def edit_recipe():
 
 
 
@@ -381,7 +388,23 @@ def sign_up():
             login_user(user, remember=request.form)
             return redirect(url_for('index'))
 
+@login_required
 @app.route('/log-out')
 def logout():
     logout_user()
     return redirect(url_for('index'))
+
+
+@login_required
+@app.route('/settings', methods=['GET', 'POST'])
+def settings():
+    if request.method == 'GET':
+        return render_template('settings.html')
+    if request.method == 'POST':
+        if request.form['delete'] == 'DELETE':
+            db.session.delete(current_user)
+            db.session.commit()
+            return redirect(url_for('index'))
+        else:
+            flash("Did not type \"DELETE\". Failed to delete account.")
+            return redirect(url_for('settings'))
